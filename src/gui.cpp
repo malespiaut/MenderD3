@@ -126,7 +126,7 @@ gui_widget::gui_widget(int argc, char** argv) : QFrame() {
 	 *	Add the AA groupbox widget to side layout
 	 */
 	this->aa = new aa_widget(2, Qt::Vertical, "Anti-Aliasing", this);
-	this->side_layout->addWidget(this->aa);
+	//FIXME! this->side_layout->addWidget(this->aa);
 
 	/*
 	 *	Add depth of field groupbox widget to side layout
