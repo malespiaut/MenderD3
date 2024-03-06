@@ -198,7 +198,7 @@ gui_widget::~gui_widget() {
 /*
  *	model_widget::model_widget()
  */
-model_widget::model_widget(enum loadable_types mtype, int strips, Orientation orientation, const QString& title, QWidget* parent, const char * name)
+model_widget::model_widget(enum loadable_types mtype, int strips, Qt::Orientation orientation, const QString& title, QWidget* parent, const char * name)
 	: QGroupBox(strips, orientation, title, parent, name) {
 
 	this->model = NULL;
@@ -307,7 +307,7 @@ void model_widget::load() {
 /*
  *	animate_widget::animate_widget()
  */
-animate_widget::animate_widget(int strips, Orientation orientation, const QString& title, QWidget* parent, const char * name)
+animate_widget::animate_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent, const char * name)
 	: QGroupBox(strips, orientation, title, parent, name) {
 
 	this->base = new QWidget(this);
@@ -584,7 +584,7 @@ void animate_widget::loop_checked() {
 /*
  *	opt_widget::opt_widget()
  */
-opt_widget::opt_widget(int strips, Orientation orientation, const QString& title, QWidget* parent, const char * name)
+opt_widget::opt_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent, const char * name)
 	: QGroupBox(strips, orientation, title, parent, name) {
 
 	this->base = new QWidget(this);
@@ -767,7 +767,7 @@ void opt_widget::resetLights_pushed() {
 /*
  *	srot_widget::srot_widget()
  */
-srot_widget::srot_widget(int strips, Orientation orientation, const QString& title, QWidget* parent, const char * name)
+srot_widget::srot_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent, const char * name)
 	: QGroupBox(strips, orientation, title, parent, name) {
 
 	this->base = new QWidget(this);
@@ -1001,7 +1001,7 @@ void srot_widget::resets_clicked() {
 /*
  *	aa_widget::aa_widget()
  */
-aa_widget::aa_widget(int strips, Orientation orientation, const QString& title, QWidget* parent, const char* name)
+aa_widget::aa_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent, const char* name)
 	: QButtonGroup(strips, orientation, title, parent, name) {
 
 	this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
@@ -1074,7 +1074,7 @@ void aa_widget::aa_8x_clicked() {
 /*
  *	dof_widget::srot_widget()
  */
-dof_widget::dof_widget(int strips, Orientation orientation, const QString& title, QWidget* parent, const char * name)
+dof_widget::dof_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent, const char * name)
 	: QGroupBox(strips, orientation, title, parent, name) {
 		
 	this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
