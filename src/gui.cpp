@@ -61,8 +61,11 @@ gui_widget::gui_widget(int argc, char** argv) : QFrame() {
 	/*
 	 *	Create the base 2x2 grid layout.
 	 */
-	this->base_grid = new QGridLayout(this, 2, 2, 1, 5);
-	
+	this->base_grid = new QGridLayout(this);
+  //XXX: Set layout for the parent widget?
+  //this->setLayout(this->base_grid);
+  this->base_grid->addLayout(this->base_grid, 2, 2);
+
 	/*
 	 *	Create the OpenGL widget and add to grid position 0,0
 	 */
