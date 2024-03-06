@@ -2,9 +2,11 @@ TEMPLATE = app
 TARGET = md3
 CONFIG -= moc
 
+QT += opengl
+
 LIBS += -lGL -lGLU -lX11 -lm -L/usr/X11R6/lib
 
-INCPATH += ../include
+INCLUDEPATH += ../include
 
 SOURCES += main.cpp md3_parse.c render.c util.c gui.cpp gl_widget.cpp tga.c quaternion.c world.c accum.c
 
