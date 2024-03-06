@@ -53,7 +53,7 @@ int gui_start(int argc, char** argv) {
  */
 gui_widget::gui_widget(int argc, char** argv) : QFrame() {
 	this->setGeometry(10, 10, 900, 675);
-	this->setCaption("MenderD3");
+	this->setWindowTitle("MenderD3");
 	
 	/* Set the global GUI widget to this */
 	g_gui = this;
