@@ -79,7 +79,7 @@ class model_widget : public QGroupBox {
 	friend class gui_widget;
 	
 	public:
-		model_widget(enum loadable_types mtype, int strips, Orientation orientation, const QString& title, QWidget* parent = 0, const char * name = 0);
+		model_widget(enum loadable_types mtype, int strips, Qt::Orientation orientation, const QString& title, QWidget* parent = 0, const char * name = 0);
 	
 	public slots:
 		void load();
@@ -95,7 +95,7 @@ class animate_widget : public QGroupBox {
 	Q_OBJECT
 	
 	public:
-		animate_widget(int strips, Orientation orientation, const QString& title, QWidget* parent = 0, const char * name = 0);
+		animate_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent = 0, const char * name = 0);
 	
 		void reset_animation();
 	
@@ -135,7 +135,7 @@ class opt_widget : public QGroupBox {
 	Q_OBJECT
 	
 	public:
-		opt_widget(int strips, Orientation orientation, const QString& title, QWidget* parent = 0, const char * name = 0);
+		opt_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent = 0, const char * name = 0);
 		
 	public slots:
 		void wire_checked();
@@ -171,7 +171,7 @@ class srot_widget : public QGroupBox {
 	Q_OBJECT
 	
 	public:
-		srot_widget(int strips, Orientation orientation, const QString& title, QWidget* parent = 0, const char * name = 0);
+		srot_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent = 0, const char * name = 0);
 		
 		void object_selected(struct md3_model_t* model);
 		
@@ -207,7 +207,7 @@ class aa_widget : public QButtonGroup {
 	Q_OBJECT
 	
 	public:
-		aa_widget(int strips, Orientation orientation, const QString& title, QWidget* parent = 0, const char* name = 0);
+		aa_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent = 0, const char* name = 0);
 	
 	public slots:
 		void aa_none_clicked();
@@ -226,7 +226,7 @@ class dof_widget : public QGroupBox {
 	Q_OBJECT
 	
 	public:
-		dof_widget(int strips, Orientation orientation, const QString& title, QWidget* parent = 0, const char * name = 0);
+		dof_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent = 0, const char * name = 0);
 	
 	public slots:
 		void focus_changed(int factor);
