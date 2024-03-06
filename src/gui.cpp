@@ -34,7 +34,6 @@ int gui_start(int argc, char** argv) {
 	
 	gui_widget* gptr = new gui_widget(argc, argv);
 	
-	app.setMainWidget(gptr);
 	gptr->show();
 	
 	int ret = app.exec();
