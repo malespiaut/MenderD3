@@ -35,7 +35,7 @@ class gl_widget : public QGLWidget {
 	Q_OBJECT
 	
 	public:
-		gl_widget(int argc, char** argv, const QGLFormat& format, QWidget* parent = 0, const char* name = 0, const QGLWidget* shareWidget = 0, WFlags f = 0);
+		gl_widget(int argc, char** argv, const QGLFormat& format, QWidget* parent = 0, const char* name = 0, const QGLWidget* shareWidget = 0, Qt::WindowFlags f = 0);
 		~gl_widget();
 		struct md3_model_t* selected_object;					/* currently selected object	*/
 		
