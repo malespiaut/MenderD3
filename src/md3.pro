@@ -4,7 +4,7 @@ CONFIG -= moc
 
 QT += opengl
 
-QMAKE_CXXFLAGS += -fpermissive
+QMAKE_CXXFLAGS += -fpermissive -w
 
 LIBS += -lGL -lGLU -lX11 -lm -L/usr/X11R6/lib
 
