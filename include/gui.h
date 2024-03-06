@@ -26,12 +26,10 @@
 #include <qgroupbox.h> 
 #include <qlabel.h> 
 #include <qpushbutton.h> 
-#include <qlistbox.h> 
 #include <qbuttongroup.h>
 #include <qradiobutton.h> 
 #include <qslider.h> 
 #include <qmenubar.h> 
-#include <qpopupmenu.h> 
 #include <qobject.h> 
 #include <qcombobox.h> 
 #include <qcheckbox.h> 
