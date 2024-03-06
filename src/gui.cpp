@@ -91,7 +91,10 @@ gui_widget::gui_widget(int argc, char** argv) : QFrame() {
 	/*
 	 *	Make the side layout.
 	 */
-	this->side_layout = new QVBoxLayout(NULL, 1, 5);
+	this->side_layout = new QVBoxLayout();
+  //XXX: Set margin and spacing?
+  //this->side_layout->setContentsMargin(new QMargins(1, 1, 1, 1));
+  //this->side_layout->setSpacing(5);
 	this->base_grid->addLayout(this->side_layout, 0, 1);
 	
 
