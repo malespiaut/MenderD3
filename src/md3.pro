@@ -4,6 +4,8 @@ CONFIG -= moc
 
 QT += opengl
 
+QMAKE_CXXFLAGS += -fpermissive
+
 LIBS += -lGL -lGLU -lX11 -lm -L/usr/X11R6/lib
 
 INCLUDEPATH += ../include
