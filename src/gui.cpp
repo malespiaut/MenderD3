@@ -79,8 +79,8 @@ gui_widget::gui_widget(int argc, char** argv) : QFrame() {
 	/*
 	 *	Set the streching factors for the columns.
 	 */
-	this->base_grid->setColStretch(0, 2000);
-	this->base_grid->setColStretch(1, 1);
+	this->base_grid->setColumnStretch(0, 2000);
+	this->base_grid->setColumnStretch(1, 1);
 
 	/*
 	 *	Set the streching factors for the rows.
