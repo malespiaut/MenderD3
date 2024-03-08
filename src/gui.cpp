@@ -204,7 +204,7 @@ gui_widget::~gui_widget() {
  *	model_widget::model_widget()
  */
 model_widget::model_widget(enum loadable_types mtype, int strips, Qt::Orientation orientation, const QString& title, QWidget* parent, const char * name)
-	: QGroupBox(strips, orientation, title, parent, name) {
+	: QGroupBox(title, parent) {
 
 	this->model = NULL;
 	this->type = mtype;
