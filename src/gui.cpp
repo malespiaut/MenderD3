@@ -153,7 +153,7 @@ gui_widget::gui_widget(int argc, char** argv) : QFrame() {
 	 *	Start of bottom layout
 	 */
 	this->bottom_layout = new QHBoxLayout();
-	this->base_grid->addMultiCellLayout(this->bottom_layout, 1, 1, 0, 1);
+	this->base_grid->addLayout(this->bottom_layout, 1, 0, 1, 2);
 	
 	/*
 	 *	add camera position label to the bottom of the screen
