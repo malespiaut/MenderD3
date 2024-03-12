@@ -1134,7 +1134,7 @@ dof_widget::dof_widget(int strips, Qt::Orientation orientation, const QString& t
 	connect(this->focus_S, SIGNAL(valueChanged(int)), this, SLOT(focus_changed(int)));
 		
 	this->dof_cb = new QCheckBox("Enable DoF Rendering", this->base);
-	this->grid->addMultiCellWidget(this->dof_cb, 1, 1, 0, 1);
+	this->grid->addWidget(this->dof_cb, 1, 0, 1, 2);
 	connect(this->dof_cb, SIGNAL(clicked()), this, SLOT(dof_toggled()));
 		
 	g_world->depth_focus = 2 * DEFAULT_CAMERA_DISTANCE;
