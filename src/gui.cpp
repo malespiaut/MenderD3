@@ -252,7 +252,7 @@ void model_widget::load() {
 		/* model */
 		
 		/* get the file to be loaded */
-		QString s = QFileDialog::getOpenFileName(MODELS_PATH, "Character Models (*.mod)", this, 0, "Open Model File");
+		QString s = QFileDialog::getOpenFileName(this, "Open Model File", MODELS_PATH, "Character Models (*.mod)");
 		
 		if (s.isEmpty())
 			return;
@@ -270,7 +270,7 @@ void model_widget::load() {
 			unload_model(this->model, 0);
 			
 		/* load the full model */
-		this->model = load_model((char*)s.ascii());
+		this->model = load_model((char*)s.toAscii().data());
 		
 		/* relink the weapon */
 		if (weapon)
@@ -287,7 +287,7 @@ void model_widget::load() {
 		/* weapon */
 		
 		/* get the file to be loaded */
-		QString s = QFileDialog::getOpenFileName(WEAPONS_PATH, "Weapon Models (*.md3)", this, 0, "Open Model File");
+		QString s = QFileDialog::getOpenFileName(this, "Open Model File", WEAPONS_PATH, "Weapon Models (*.md3)");
 		
 		if (s.isEmpty())
 			return;
@@ -297,7 +297,7 @@ void model_widget::load() {
 			unload_weapon(this->model);
 		
 		/* load the weapon model */
-		this->model = load_weapon((char*)s.ascii(), "../");
+		this->model = load_weapon((char*)s.toAscii().data(), "../");
 	}
 }
 
