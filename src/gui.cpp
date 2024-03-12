@@ -271,7 +271,7 @@ void model_widget::load() {
 			unload_model(this->model, 0);
 			
 		/* load the full model */
-		this->model = load_model((char*)s.toAscii().data());
+		this->model = load_model((char*)s.toLatin1().data());
 		
 		/* relink the weapon */
 		if (weapon)
@@ -298,7 +298,7 @@ void model_widget::load() {
 			unload_weapon(this->model);
 		
 		/* load the weapon model */
-		this->model = load_weapon((char*)s.toAscii().data(), "../");
+		this->model = load_weapon((char*)s.toLatin1().data(), "../");
 	}
 }
 
