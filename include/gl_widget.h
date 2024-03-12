@@ -19,9 +19,10 @@
 #ifndef _GL_WIDGET_H
 #define _GL_WIDGET_H
 
-#include <qgl.h>
-#include <qevent.h>
-#include <qtimer.h>
+#include <QOpenGLWidget>
+#include <QSurfaceFormat>
+#include <QEvent>
+#include <QTimer>
 #include "definitions.h"
 #include "world.h"
 
@@ -31,11 +32,11 @@
  */
 #define MAX_FRAMERATE		100
 
-class gl_widget : public QGLWidget {
+class gl_widget : public QOpenGLWidget {
 	Q_OBJECT
 	
 	public:
-		gl_widget(int argc, char** argv, const QGLFormat& format, QWidget* parent = 0, const char* name = 0, const QGLWidget* shareWidget = 0, Qt::WindowFlags f = 0);
+		gl_widget(int argc, char** argv, const QSurfaceFormat& format, QWidget* parent = 0, const char* name = 0, const QOpenGLWidget* shareWidget = 0, Qt::WindowFlags f = 0);
 		~gl_widget();
 		struct md3_model_t* selected_object;					/* currently selected object	*/
 		

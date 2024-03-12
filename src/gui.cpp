@@ -16,8 +16,9 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 
-#include <qapplication.h>
-#include <qlayout.h>
+#include <QSurfaceFormat>
+#include <QApplication>
+#include <QLayout>
 #include "gl_widget.h"
 #include "gui.h"
 #include "world.h"
@@ -70,11 +71,9 @@ gui_widget::gui_widget(int argc, char** argv) : QFrame() {
 	/*
 	 *	Create the OpenGL widget and add to grid position 0,0
 	 */
-	QGLFormat gl_format;
-	gl_format.setDoubleBuffer(1);
-	gl_format.setStencil(1);
-	gl_format.setAccum(1);
-	this->gl = new gl_widget(argc, argv, gl_format, this);
+	QSurfaceFormat surface_format;
+	surface_format.setSwapBehavior(QSurfaceFormat::DoubleBuffer);
+	this->gl = new gl_widget(argc, argv, surface_format, this);
 	this->base_grid->addWidget(this->gl, 0, 0);
 	
 	/*

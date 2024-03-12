@@ -2,7 +2,7 @@ TEMPLATE = app
 TARGET = md3
 CONFIG -= moc
 
-QT += opengl
+QT += openglwidgets widgets
 
 QMAKE_CFLAGS += -Wall -Wextra -Wpedantic -Wshadow -Wstrict-aliasing=2 -Wdouble-promotion
 QMAKE_CXXFLAGS += -fpermissive -Wall -Wextra -Wpedantic -Wshadow -Wstrict-aliasing=2 -Wdouble-promotion

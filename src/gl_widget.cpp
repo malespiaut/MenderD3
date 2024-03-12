@@ -16,8 +16,10 @@
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
  
-#include <qgl.h>
-#include <qevent.h>
+#include <QMouseEvent>
+#include <QOpenGLWidget>
+#include <QSurfaceFormat>
+#include <QEvent>
 #include <math.h>
 #include <GL/glu.h>
 #include "quaternion.h"
@@ -29,8 +31,8 @@
 #include "md3_parse.h"
 
 
-gl_widget::gl_widget(int argc, char** argv, const QGLFormat& format, QWidget* parent, const char* name, const QGLWidget* shareWidget, Qt::WindowFlags f)
-	: QGLWidget(format, parent, shareWidget, f) {
+gl_widget::gl_widget(int argc, char** argv, const QSurfaceFormat& format, QWidget* parent, const char* name, const QOpenGLWidget* shareWidget, Qt::WindowFlags f)
+	: QOpenGLWidget(parent, f) {
 		
 	this->argc = argc;
 	this->argv = argv;
@@ -48,9 +50,6 @@ gl_widget::gl_widget(int argc, char** argv, const QGLFormat& format, QWidget* pa
 	this->frame_skip = 0;
 	this->max_frame_rate = MAX_FRAMERATE;
 	
-	/* enable double buffering */
-	this->setAutoBufferSwap(1);
-		
 	/* set selected object to nothing */
 	this->selected_object = NULL;
 
@@ -122,7 +121,7 @@ void gl_widget::idle_cycle() {
 	}
 	
 	/* rerender */
-	this->updateGL();
+	this->update();
 }
 
 
@@ -271,8 +270,8 @@ void gl_widget::paintGL() {
  *	Called when a mouse button is depressed.
  */
 void gl_widget::mousePressEvent(QMouseEvent* e) {
-	int x = e->x();
-	int y = e->y();
+	int x = e->position().x();
+	int y = e->position().y();
 	
 	if (e->button() == Qt::LeftButton) {
 		this->mouse.old_pos[0] = x;
@@ -298,8 +297,8 @@ void gl_widget::mouseReleaseEvent(QMouseEvent* e) {
  *	Called when the mouse moves over the widget.
  */
 void gl_widget::mouseMoveEvent(QMouseEvent* e) {
-	int x = e->x();
-	int y = e->y();
+	int x = e->position().x();
+	int y = e->position().y();
 	char buf[64] = {0};
 	
 	if (!this->mouse.depressed)
@@ -377,7 +376,7 @@ void gl_widget::mouseMoveEvent(QMouseEvent* e) {
 	this->mouse.old_pos[0] = x;
 	this->mouse.old_pos[1] = y;
 	
-	this->updateGL();
+	this->update();
 }
 
 
@@ -411,7 +410,7 @@ void gl_widget::select_object(int x, int y) {
 
 	gluPerspective(g_world->env.fov, ((float)this->width / (float)this->height), g_world->env.vnear, g_world->env.vfar);
 
-	this->updateGL();
+	this->update();
 
 	hits = glRenderMode(GL_RENDER);
   
