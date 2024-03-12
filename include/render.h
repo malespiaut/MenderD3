@@ -53,7 +53,7 @@ extern "C"
 {
 #endif
 
-void render();
+void render_c();
 void render_primitives(int apply_names);
 
 void render_flashlight();

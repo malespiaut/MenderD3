@@ -72,7 +72,7 @@ static void render_primitives_aa(int aa, int apply_names);
 /*
  *	Render the scene for the current engine setup.
  */
-void render() {
+void render_c() {
 	if (WORLD_IS_SET(ENGINE_DEPTH_OF_FIELD))
 		render_depth_of_field();
 	else

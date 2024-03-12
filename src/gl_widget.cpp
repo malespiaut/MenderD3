@@ -263,7 +263,7 @@ void gl_widget::paintGL() {
 	else
 		glDisable(GL_TEXTURE_2D);
 
-	render();	
+	render_c();	
 }
 
 
