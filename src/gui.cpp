@@ -829,15 +829,24 @@ srot_widget::srot_widget(int strips, Qt::Orientation orientation, const QString&
 	this->move_grid->addWidget(this->scale_S, 0, 1);
 	connect( this->scale_S, SIGNAL( valueChanged(int) ), this, SLOT( scale_changed(int) ) );
 
-	this->xrot_S = new QSlider(-180, 180, 1, 0, Qt::Horizontal, this->base);
+	this->xrot_S = new QSlider(Qt::Horizontal, this->base);
+	this->xrot_S->setRange(-180, 180);
+	this->xrot_S->setPageStep(1);
+	this->xrot_S->setValue(0);
 	this->move_grid->addWidget(this->xrot_S, 1, 1);
 	connect( this->xrot_S, SIGNAL( valueChanged(int) ), this, SLOT( xrot_changed(int) ) );	
 		
-	this->yrot_S = new QSlider(-180, 180, 1, 0, Qt::Horizontal, this->base);
+	this->yrot_S = new QSlider(Qt::Horizontal, this->base);
+	this->yrot_S->setRange(-180, 180);
+	this->yrot_S->setPageStep(1);
+	this->yrot_S->setValue(0);
 	this->move_grid->addWidget(this->yrot_S, 2, 1);
 	connect( this->yrot_S, SIGNAL( valueChanged(int) ), this, SLOT( yrot_changed(int) ) );
 	
-	this->zrot_S = new QSlider(-180, 180, 1, 0, Qt::Horizontal, this->base);
+	this->zrot_S = new QSlider(Qt::Horizontal, this->base);
+	this->zrot_S->setRange(-180, 180);
+	this->zrot_S->setPageStep(1);
+	this->zrot_S->setValue(0);
 	this->move_grid->addWidget(this->zrot_S, 3, 1);
 	connect( this->zrot_S, SIGNAL( valueChanged(int) ), this, SLOT( zrot_changed(int) ) );
 	
