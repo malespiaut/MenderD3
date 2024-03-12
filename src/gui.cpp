@@ -651,7 +651,10 @@ opt_widget::opt_widget(int strips, Qt::Orientation orientation, const QString& t
 	this->opt_grid->addWidget(this->view_lightsCB, 2, 1);
 	connect( view_lightsCB, SIGNAL( clicked() ), this, SLOT( vlights_checked() ) );
 
-	this->zoom = new QSlider(-200, 0, 1, -100, Qt::Horizontal, this->base);
+	this->zoom = new QSlider(Qt::Horizontal, this->base);
+	this->zoom->setRange(-200, 0);
+	this->zoom->setPageStep(1);
+	this->zoom->setValue(-100);
 	this->opt_grid->addWidget(this->zoom, 3, 1);
 	connect( zoom, SIGNAL( valueChanged(int) ), this, SLOT( zoom_changed(int) ) );
 }
