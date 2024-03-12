@@ -633,7 +633,7 @@ opt_widget::opt_widget(int strips, Qt::Orientation orientation, const QString& t
 	this->opt_grid->addWidget(this->zLabel, 3, 0);
 	
 	this->reset_lights = new QPushButton("Reset Light", this->base);
-	this->opt_grid->addMultiCellWidget(this->reset_lights, 4, 4, 0, 1);
+	this->opt_grid->addWidget(this->reset_lights, 4, 0, 1, 2);
 	connect( reset_lights, SIGNAL( clicked() ), this, SLOT( resetLights_pushed() ) );
 
 	/*
