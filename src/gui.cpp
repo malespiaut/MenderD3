@@ -608,7 +608,11 @@ opt_widget::opt_widget(int strips, Qt::Orientation orientation, const QString& t
 	/*
 	 *	creates a grid layout to organize the widgets
 	 */
-	this->opt_grid = new QGridLayout(this->base, 5, 2, 1, 5);
+	this->opt_grid = new QGridLayout(this);
+	//XXX: Set layout for the parent widget?
+	//this->setLayout(this->opt_grid);
+	//XXX: Use setMargin() and setSpacing()?
+	this->opt_grid->addLayout(this->opt_grid, 5, 2);
 
 	/*
 	 *	first column
