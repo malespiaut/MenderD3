@@ -313,7 +313,7 @@ void model_widget::load() {
  *	animate_widget::animate_widget()
  */
 animate_widget::animate_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent, const char * name)
-	: QGroupBox(strips, orientation, title, parent, name) {
+	: QGroupBox(title, parent) {
 
 	this->base = new QWidget(this);
 	this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
