@@ -28,7 +28,7 @@
 #include "md3_parse.h"
 
 
-gl_widget::gl_widget(int argc, char** argv, const QGLFormat& format, QWidget* parent, const char* name, const QGLWidget* shareWidget, WFlags f)
+gl_widget::gl_widget(int argc, char** argv, const QGLFormat& format, QWidget* parent, const char* name, const QGLWidget* shareWidget, Qt::WindowFlags f)
 	: QGLWidget(format, parent, name, shareWidget, f) {
 		
 	this->argc = argc;
