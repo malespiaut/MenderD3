@@ -1037,9 +1037,6 @@ void srot_widget::resets_clicked() {
 aa_widget::aa_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent, const char* name)
 	: QButtonGroup(parent) {
 
-	this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
-	this->setMaximumWidth(MAX_MENU_WIDTH);
-
 	this->aa_none_rb = new QRadioButton("None", this);
 	this->aa_2x_rb = new QRadioButton("2x AA", this);
 	this->aa_4x_rb = new QRadioButton("4x AA", this);
