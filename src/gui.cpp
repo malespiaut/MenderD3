@@ -1117,7 +1117,11 @@ dof_widget::dof_widget(int strips, Qt::Orientation orientation, const QString& t
 
 	this->base = new QWidget(this);
 		
-	this->grid = new QGridLayout(this->base, 2, 2, 1, 5);
+	this->grid = new QGridLayout(this->base);
+	//XXX: Set layout for the parent widget?
+	//this->setLayout(this->grid);
+	//XXX: Use setMargin() and setSpacing()?
+	this->grid->addLayout(this->grid, 2, 2);
 		
 	this->focus_label = new QLabel("Focal Point", this->base);
 	this->grid->addWidget(this->focus_label, 0, 0);
