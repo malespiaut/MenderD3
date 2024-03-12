@@ -433,9 +433,9 @@ void animate_widget::reset_animation() {
 	/*
 	 *	Set drop-down boxes to first elements.
 	 */
-	this->tl_CB->setCurrentItem(0);
-	this->t_CB->setCurrentItem(0);
-	this->l_CB->setCurrentItem(0);
+	this->tl_CB->setCurrentIndex(0);
+	this->t_CB->setCurrentIndex(0);
+	this->l_CB->setCurrentIndex(0);
 }
 
 
@@ -454,7 +454,7 @@ void animate_widget::tl_clicked() {
 		BOTH_DEAD3
 	};
 	
-	int selected = tl_CB->currentItem();
+	int selected = tl_CB->currentIndex();
 	
 	/* if the title is selected, then nothing can be animated */
 	if (!selected)
@@ -480,7 +480,7 @@ void animate_widget::t_clicked() {
 		TORSO_STAND2
 	};
 
-	int selected = t_CB->currentItem();
+	int selected = t_CB->currentIndex();
 	
 	/* if the title is selected, then nothing can be animated */
 	if (!selected)
@@ -511,7 +511,7 @@ void animate_widget::l_clicked() {
 		LEGS_TURN
 	};
 
-	int selected = l_CB->currentItem();
+	int selected = l_CB->currentIndex();
 	
 	/* if the title is selected, then nothing can be animated */
 	if (!selected)
