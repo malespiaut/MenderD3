@@ -62,9 +62,9 @@ gui_widget::gui_widget(int argc, char** argv) : QFrame() {
 	 *	Create the base 2x2 grid layout.
 	 */
 	this->base_grid = new QGridLayout(this);
-  //XXX: Set layout for the parent widget?
-  //this->setLayout(this->base_grid);
-  this->base_grid->addLayout(this->base_grid, 2, 2);
+	//XXX: Set layout for the parent widget?
+	//this->setLayout(this->base_grid);
+	this->base_grid->addLayout(this->base_grid, 2, 2);
 
 	/*
 	 *	Create the OpenGL widget and add to grid position 0,0
@@ -322,7 +322,7 @@ animate_widget::animate_widget(int strips, Qt::Orientation orientation, const QS
 	/*
 	 *	creates a grid layout to organize the widgets
 	 */
-	this->ani_grid = new QGridLayout(this);
+	this->ani_grid = new QGridLayout(this->base);
 	//XXX: Set layout for the parent widget?
 	//this->setLayout(this->ani_grid);
 	//XXX: Use setMargin() and setSpacing()?
@@ -608,7 +608,7 @@ opt_widget::opt_widget(int strips, Qt::Orientation orientation, const QString& t
 	/*
 	 *	creates a grid layout to organize the widgets
 	 */
-	this->opt_grid = new QGridLayout(this);
+	this->opt_grid = new QGridLayout(this->base);
 	//XXX: Set layout for the parent widget?
 	//this->setLayout(this->opt_grid);
 	//XXX: Use setMargin() and setSpacing()?
@@ -796,7 +796,7 @@ srot_widget::srot_widget(int strips, Qt::Orientation orientation, const QString&
 	/*
 	 *	creates a grid layout to organize the widgets
 	 */
-	this->move_grid = new QGridLayout(this);
+	this->move_grid = new QGridLayout(this->base);
 	//XXX: Set layout for the parent widget?
 	//this->setLayout(this->move_grid);
 	//XXX: Use setMargin() and setSpacing()?
