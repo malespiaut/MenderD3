@@ -322,7 +322,12 @@ animate_widget::animate_widget(int strips, Qt::Orientation orientation, const QS
 	/*
 	 *	creates a grid layout to organize the widgets
 	 */
-	this->ani_grid = new QGridLayout(this->base, 4, 3, 1, 5);
+	this->ani_grid = new QGridLayout(this);
+	//XXX: Set layout for the parent widget?
+	//this->setLayout(this->ani_grid);
+	//XXX: Use setMargin() and setSpacing()?
+	this->ani_grid->addLayout(this->ani_grid, 4, 3);
+
 	
 	/*
 	 *	first column of the grid
