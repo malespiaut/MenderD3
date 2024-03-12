@@ -4,7 +4,8 @@ CONFIG -= moc
 
 QT += opengl
 
-QMAKE_CXXFLAGS += -fpermissive -w
+QMAKE_CFLAGS += -Wall -Wextra -Wpedantic -Wshadow -Wstrict-aliasing=2 -Wdouble-promotion
+QMAKE_CXXFLAGS += -fpermissive -Wall -Wextra -Wpedantic -Wshadow -Wstrict-aliasing=2 -Wdouble-promotion
 
 LIBS += -lGL -lGLU -lX11 -lm -L/usr/X11R6/lib
 
