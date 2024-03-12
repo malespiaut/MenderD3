@@ -274,7 +274,7 @@ void gl_widget::mousePressEvent(QMouseEvent* e) {
 	int x = e->x();
 	int y = e->y();
 	
-	if (e->button() == LeftButton) {
+	if (e->button() == Qt::LeftButton) {
 		this->mouse.old_pos[0] = x;
 		this->mouse.old_pos[1] = y;
 		this->mouse.depressed = 1;
