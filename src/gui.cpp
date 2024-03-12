@@ -796,7 +796,11 @@ srot_widget::srot_widget(int strips, Qt::Orientation orientation, const QString&
 	/*
 	 *	creates a grid layout to organize the widgets
 	 */
-	this->move_grid = new QGridLayout(this->base, 5, 2, 1, 5);
+	this->move_grid = new QGridLayout(this);
+	//XXX: Set layout for the parent widget?
+	//this->setLayout(this->move_grid);
+	//XXX: Use setMargin() and setSpacing()?
+	this->move_grid->addLayout(this->move_grid, 5, 2);
 
 	/*
 	 *	first column of the grid
