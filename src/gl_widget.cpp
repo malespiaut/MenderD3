@@ -19,6 +19,7 @@
 #include <qgl.h>
 #include <qevent.h>
 #include <math.h>
+#include <GL/glu.h>
 #include "quaternion.h"
 #include "render.h"
 #include "world.h"
