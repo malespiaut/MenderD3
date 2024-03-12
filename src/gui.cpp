@@ -1110,7 +1110,7 @@ void aa_widget::aa_8x_clicked() {
  *	dof_widget::srot_widget()
  */
 dof_widget::dof_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent, const char * name)
-	: QGroupBox(strips, orientation, title, parent, name) {
+	: QGroupBox(title, parent) {
 		
 	this->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Maximum);
 	this->setMaximumWidth(MAX_MENU_WIDTH);
