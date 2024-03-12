@@ -1126,7 +1126,10 @@ dof_widget::dof_widget(int strips, Qt::Orientation orientation, const QString& t
 	this->focus_label = new QLabel("Focal Point", this->base);
 	this->grid->addWidget(this->focus_label, 0, 0);
 		
-	this->focus_S = new QSlider(10, 400, 1, (int)(2 * DEFAULT_CAMERA_DISTANCE), Qt::Horizontal, this->base);
+	this->focus_S = new QSlider(Qt::Horizontal, this->base);
+	this->focus_S->setRange(10, 400);
+	this->focus_S->setPageStep(1);
+	this->focus_S->setValue((int)(2 * DEFAULT_CAMERA_DISTANCE));
 	this->grid->addWidget(this->focus_S, 0, 1);
 	connect(this->focus_S, SIGNAL(valueChanged(int)), this, SLOT(focus_changed(int)));
 		
