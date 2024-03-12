@@ -822,7 +822,10 @@ srot_widget::srot_widget(int strips, Qt::Orientation orientation, const QString&
 	 *	second column of the grid
 	 *	4 sliders for adjusting values of scaling and rotatating
 	 */
-	this->scale_S = new QSlider(0, 200, 1, 100, Qt::Horizontal, this->base);
+	this->scale_S = new QSlider(Qt::Horizontal, this->base);
+	this->scale_S->setRange(0, 200);
+	this->scale_S->setPageStep(1);
+	this->scale_S->setValue(100);
 	this->move_grid->addWidget(this->scale_S, 0, 1);
 	connect( this->scale_S, SIGNAL( valueChanged(int) ), this, SLOT( scale_changed(int) ) );
 
