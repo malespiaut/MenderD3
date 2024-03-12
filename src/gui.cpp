@@ -62,9 +62,10 @@ gui_widget::gui_widget(int argc, char** argv) : QFrame() {
 	 *	Create the base 2x2 grid layout.
 	 */
 	this->base_grid = new QGridLayout(this);
-	//XXX: Set layout for the parent widget?
-	//this->setLayout(this->base_grid);
 	this->base_grid->addLayout(this->base_grid, 2, 2);
+	this->base_grid->setContentsMargins(1, 1, 1, 1);
+	this->base_grid->setSpacing(5);
+	this->setLayout(this->base_grid);
 
 	/*
 	 *	Create the OpenGL widget and add to grid position 0,0
@@ -92,10 +93,10 @@ gui_widget::gui_widget(int argc, char** argv) : QFrame() {
 	 *	Make the side layout.
 	 */
 	this->side_layout = new QVBoxLayout();
-  //XXX: Set margin and spacing?
-  //this->side_layout->setContentsMargin(new QMargins(1, 1, 1, 1));
-  //this->side_layout->setSpacing(5);
 	this->base_grid->addLayout(this->side_layout, 0, 1);
+	this->base_grid->setContentsMargins(1, 1, 1, 1);
+	this->base_grid->setSpacing(5);
+	this->setLayout(this->base_grid);
 	
 
 	/*
@@ -323,10 +324,10 @@ animate_widget::animate_widget(int strips, Qt::Orientation orientation, const QS
 	 *	creates a grid layout to organize the widgets
 	 */
 	this->ani_grid = new QGridLayout(this->base);
-	//XXX: Set layout for the parent widget?
-	//this->setLayout(this->ani_grid);
-	//XXX: Use setMargin() and setSpacing()?
 	this->ani_grid->addLayout(this->ani_grid, 4, 3);
+	this->ani_grid->setContentsMargins(1, 1, 1, 1);
+	this->ani_grid->setSpacing(5);
+	this->setLayout(this->ani_grid);
 
 	
 	/*
@@ -609,10 +610,10 @@ opt_widget::opt_widget(int strips, Qt::Orientation orientation, const QString& t
 	 *	creates a grid layout to organize the widgets
 	 */
 	this->opt_grid = new QGridLayout(this->base);
-	//XXX: Set layout for the parent widget?
-	//this->setLayout(this->opt_grid);
-	//XXX: Use setMargin() and setSpacing()?
 	this->opt_grid->addLayout(this->opt_grid, 5, 2);
+	this->opt_grid->setContentsMargins(1, 1, 1, 1);
+	this->opt_grid->setSpacing(5);
+	this->setLayout(this->opt_grid);
 
 	/*
 	 *	first column
@@ -797,10 +798,10 @@ srot_widget::srot_widget(int strips, Qt::Orientation orientation, const QString&
 	 *	creates a grid layout to organize the widgets
 	 */
 	this->move_grid = new QGridLayout(this->base);
-	//XXX: Set layout for the parent widget?
-	//this->setLayout(this->move_grid);
-	//XXX: Use setMargin() and setSpacing()?
 	this->move_grid->addLayout(this->move_grid, 5, 2);
+	this->move_grid->setContentsMargins(1, 1, 1, 1);
+	this->move_grid->setSpacing(5);
+	this->setLayout(this->move_grid);
 
 	/*
 	 *	first column of the grid
@@ -1118,10 +1119,10 @@ dof_widget::dof_widget(int strips, Qt::Orientation orientation, const QString& t
 	this->base = new QWidget(this);
 		
 	this->grid = new QGridLayout(this->base);
-	//XXX: Set layout for the parent widget?
-	//this->setLayout(this->grid);
-	//XXX: Use setMargin() and setSpacing()?
 	this->grid->addLayout(this->grid, 2, 2);
+	this->grid->setContentsMargins(1, 1, 1, 1);
+	this->grid->setSpacing(5);
+	this->setLayout(this->grid);
 		
 	this->focus_label = new QLabel("Focal Point", this->base);
 	this->grid->addWidget(this->focus_label, 0, 0);
