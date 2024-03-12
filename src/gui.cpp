@@ -851,7 +851,7 @@ srot_widget::srot_widget(int strips, Qt::Orientation orientation, const QString&
 	connect( this->zrot_S, SIGNAL( valueChanged(int) ), this, SLOT( zrot_changed(int) ) );
 	
 	this->reset_sliders = new QPushButton("Reset", this->base);
-	this->move_grid->addMultiCellWidget(this->reset_sliders, 5, 5, 0, 1);
+	this->move_grid->addWidget(this->reset_sliders, 5, 0, 1, 2);
 	connect( this->reset_sliders, SIGNAL( clicked() ), this, SLOT( resets_clicked() ) );
 }
 
