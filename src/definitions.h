@@ -46,8 +46,6 @@ extern "C"
  */
 #define USE_INTERPOLATION
 
-typedef unsigned char byte;
-
 /*
  *	Math stuff.
  */

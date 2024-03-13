@@ -249,8 +249,8 @@ extern "C"
   {
     FILE* fptr;    // file pointer
     long file_len; // file length in bytes
-    byte* dptr;    // beginning of file in memory
-    // byte* sdptr; // beginning of file in memory (do not alter)
+    unsigned char* dptr;    // beginning of file in memory
+    // unsigned char* sdptr; // beginning of file in memory (do not alter)
 
     int ident;            // md3 magic number, endianness
     int version;          // version number of file format

@@ -31,13 +31,13 @@
 #pragma pack(1)
 struct tga_header_t
 {
-  byte ident_size;     /* size of id field												*/
-  byte color_map_type; /* type of color map [ 0=none, 1=palette ]						*/
-  byte image_type;     /* type of image [ 0=none, 1=indexed, 2=rgb, 3=grey, >8=rle ]	*/
+  unsigned char ident_size;     /* size of id field												*/
+  unsigned char color_map_type; /* type of color map [ 0=none, 1=palette ]						*/
+  unsigned char image_type;     /* type of image [ 0=none, 1=indexed, 2=rgb, 3=grey, >8=rle ]	*/
 
   short color_map_start; /* starting entry in color map			*/
   short color_map_len;   /* total number of color map entries	*/
-  byte color_map_bits;   /* number of color bits per entry		*/
+  unsigned char color_map_bits;   /* number of color bits per entry		*/
 
   short xorig; /* x-origin, lower left		*/
   short yorig; /* y-origin, lower left		*/
@@ -45,8 +45,8 @@ struct tga_header_t
   short width;  /* image width	*/
   short height; /* image height	*/
 
-  byte depth; /* color depth, bits per pixel	*/
-  byte desc;  /* image flags					*/
+  unsigned char depth; /* color depth, bits per pixel	*/
+  unsigned char desc;  /* image flags					*/
 };
 #pragma pack(8)
 
@@ -56,7 +56,7 @@ struct tga_header_t
 struct tga_t
 {
   struct tga_header_t header;
-  byte* img;
+  unsigned char* img;
   int gl_format;
   int gl_compontents;
   int vflip;

@@ -47,10 +47,10 @@ load_tga(char* file)
 
   /* allocate memory for the image body */
   size = (tga->header.width * tga->header.height * tga->header.depth);
-  tga->img = (byte*)malloc(sizeof(byte) * size);
+  tga->img = (unsigned char*)malloc(sizeof(unsigned char) * size);
 
   /* read the body in */
-  fread((void*)tga->img, (sizeof(byte) * size), 1, fptr);
+  fread((void*)tga->img, (sizeof(unsigned char) * size), 1, fptr);
 
   fclose(fptr);
 
