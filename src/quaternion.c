@@ -38,9 +38,9 @@
  *	performed _upon_ the quaternion.
  */
 void
-quat_init(struct quat_t* q)
+quat_init(quat_t* q)
 {
-  struct quat_t i = {0.0f, 0.0f, 0.0f, 1.0f};
+  quat_t i = {0.0f, 0.0f, 0.0f, 1.0f};
   *q = i;
 }
 
@@ -48,7 +48,7 @@ quat_init(struct quat_t* q)
  *	Normalize a quaternion.
  */
 void
-quat_normalize(struct quat_t* q)
+quat_normalize(quat_t* q)
 {
   float r = ((q->x * q->x) + (q->y * q->y) + (q->z * q->z) + (q->w * q->w));
   if (abs(1.0f - r) <= 0.0000001)
@@ -72,9 +72,9 @@ quat_normalize(struct quat_t* q)
  *	Multiplication is not commutative.
  */
 void
-quat_mult(struct quat_t* a, struct quat_t* b, struct quat_t* c)
+quat_mult(quat_t* a, quat_t* b, quat_t* c)
 {
-  struct quat_t r;
+  quat_t r;
   r.x = ((a->w * b->x) + (a->x * b->w) + (a->y * b->z) - (a->z * b->y));
   r.y = ((a->w * b->y) - (a->z * b->z) + (a->y * b->w) + (a->z * b->x));
   r.z = ((a->w * b->z) + (a->x * b->y) - (a->y * b->x) + (a->z * b->w));
@@ -88,7 +88,7 @@ quat_mult(struct quat_t* a, struct quat_t* b, struct quat_t* c)
  *	The angle is assumed to be in degrees.
  */
 void
-quat_rotate(struct quat_t* q, float ang, float x, float y, float z)
+quat_rotate(quat_t* q, float ang, float x, float y, float z)
 {
   float rad = (ang * (PI / 180.0f));
   float ha = sinf(rad / 2.0f);
@@ -107,7 +107,7 @@ quat_rotate(struct quat_t* q, float ang, float x, float y, float z)
  *	The resulting matrix is stored at m.
  */
 void
-quat_to_matrix_4x4(struct quat_t* q, struct vec3_t* origin, float* m)
+quat_to_matrix_4x4(quat_t* q, struct vec3_t* origin, float* m)
 {
   float x = q->x;
   float y = q->y;
@@ -152,7 +152,7 @@ quat_to_matrix_4x4(struct quat_t* q, struct vec3_t* origin, float* m)
  *	Generate a quaternion from a 4x4 matrix.
  */
 void
-quat_from_matrix_4x4(struct quat_t* q, float* m)
+quat_from_matrix_4x4(quat_t* q, float* m)
 {
   float trace = 0;
   float scale = 0;
@@ -249,7 +249,7 @@ matrix_3x3_to_4x4(float* m3, float* m4, struct vec3_t* origin)
  *	Generate a quaternion from a 3x3 matrix.
  */
 void
-quat_from_matrix_3x3(struct quat_t* q, float* m)
+quat_from_matrix_3x3(quat_t* q, float* m)
 {
   float m4[16];
   matrix_3x3_to_4x4(m, m4, NULL);
@@ -265,7 +265,7 @@ quat_from_matrix_3x3(struct quat_t* q, float* m)
  *	http://en.wikipedia.org/wiki/Slerp
  */
 void
-quat_slerp(struct quat_t* q1, struct quat_t* q2, float t, struct quat_t* q3)
+quat_slerp(quat_t* q1, quat_t* q2, float t, quat_t* q3)
 {
   float dp = 0;
   float front_slerp;

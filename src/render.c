@@ -59,7 +59,7 @@ struct md3_tag_t pseudo_tag = {
 
 static void render_scene();
 static void render_depth_of_field();
-static void apply_custom_rotation(struct md3_model_t* model, struct md3_tag_t* tag, struct quat_t* quat);
+static void apply_custom_rotation(struct md3_model_t* model, struct md3_tag_t* tag, quat_t* quat);
 static void render_primitives_aa(int aa, int apply_names);
 
 /*
@@ -259,9 +259,9 @@ md3_render(struct md3_model_t* model, int apply_names, struct md3_tag_t* link_ta
   float* rot1 = NULL;
   float* rot2 = NULL;
   float rot[16];
-  struct quat_t q1;
-  struct quat_t q2;
-  struct quat_t q3;
+  quat_t q1;
+  quat_t q2;
+  quat_t q3;
   struct vec3_t* origin1 = NULL;
   struct vec3_t* origin2 = NULL;
   struct vec3_t origin;
@@ -470,9 +470,9 @@ md3_render_single(struct md3_model_t* model, int apply_names)
 }
 
 static void
-apply_custom_rotation(struct md3_model_t* model, struct md3_tag_t* tag, struct quat_t* quat)
+apply_custom_rotation(struct md3_model_t* model, struct md3_tag_t* tag, quat_t* quat)
 {
-  struct quat_t c_local;
+  quat_t c_local;
   quat_init(&c_local);
 
   /* rotation x-axis */

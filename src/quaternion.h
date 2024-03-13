@@ -25,9 +25,12 @@
  *	x, y, and z represent the axis.
  *	w represents the rotation angle around that axis.
  */
+typedef struct quat_t quat_t;
 struct quat_t
 {
-  float x, y, z;
+  float x;
+  float y;
+  float z;
   float w;
 };
 
@@ -36,17 +39,17 @@ extern "C"
 {
 #endif
 
-  void quat_init(struct quat_t* q);
-  void quat_normalize(struct quat_t* q);
-  void quat_mult(struct quat_t* a, struct quat_t* b, struct quat_t* c);
-  void quat_rotate(struct quat_t* q, float ang, float x, float y, float z);
-  void quat_to_matrix_4x4(struct quat_t* q, struct vec3_t* origin, float* m);
-  void quat_from_matrix_4x4(struct quat_t* q, float* m);
-  void quat_from_matrix_3x3(struct quat_t* q, float* m);
+  void quat_init(quat_t* q);
+  void quat_normalize(quat_t* q);
+  void quat_mult(quat_t* a, quat_t* b, quat_t* c);
+  void quat_rotate(quat_t* q, float ang, float x, float y, float z);
+  void quat_to_matrix_4x4(quat_t* q, struct vec3_t* origin, float* m);
+  void quat_from_matrix_4x4(quat_t* q, float* m);
+  void quat_from_matrix_3x3(quat_t* q, float* m);
 
   void matrix_3x3_to_4x4(float* m3, float* m4, struct vec3_t* origin);
 
-  void quat_slerp(struct quat_t* q1, struct quat_t* q2, float t, struct quat_t* q3);
+  void quat_slerp(quat_t* q1, quat_t* q2, float t, quat_t* q3);
 
 #ifdef __cplusplus
 }
