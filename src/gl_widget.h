@@ -39,7 +39,7 @@ class gl_widget : public QOpenGLWidget
 public:
   gl_widget(int argc, char** argv, const QSurfaceFormat& format, QWidget* parent = 0, const char* name = 0, const QOpenGLWidget* shareWidget = 0, Qt::WindowFlags f = 0);
   ~gl_widget();
-  struct md3_model_t* selected_object; /* currently selected object	*/
+  md3_model_t* selected_object; /* currently selected object	*/
 
 public slots:
   void idle_cycle();

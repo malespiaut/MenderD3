@@ -73,7 +73,7 @@
 struct world_link_models_t
 {
   struct world_link_models_t* next;
-  struct md3_model_t* model;
+  md3_model_t* model;
 };
 
 /*
@@ -135,7 +135,7 @@ struct light_t
   double dir_trot;
   double dir_prot;
 
-  struct md3_model_t* model; /* model for this light - if needed */
+  md3_model_t* model; /* model for this light - if needed */
 };
 
 /* material information */
@@ -165,11 +165,11 @@ struct mirror_t
  */
 struct world_t
 {
-  struct md3_model_t* root_model;     /* root model - start of render tree				*/
+  md3_model_t* root_model;            /* root model - start of render tree				*/
   struct world_link_models_t* models; /* array of model parts	(not needed for rendering)	*/
   struct world_texture_t* texts;      /* array of textures								*/
 
-  struct md3_anim_t anims[MD3_MAX_ANIMS]; /* animation data				*/
+  md3_anim_t anims[MD3_MAX_ANIMS]; /* animation data				*/
 
   struct camera_t camera;  /* camera position				*/
   struct env_t env;        /* environment settings			*/
@@ -194,26 +194,26 @@ extern "C"
   struct world_t* world_init();
   void world_free(struct world_t* wptr);
 
-  void world_add_model(struct world_t* wptr, struct md3_model_t* mptr, int root);
-  void world_del_model(struct world_t* wptr, struct md3_model_t* mptr);
+  void world_add_model(struct world_t* wptr, md3_model_t* mptr, int root);
+  void world_del_model(struct world_t* wptr, md3_model_t* mptr);
 
-  void world_link_model(struct world_t* wptr, struct md3_model_t* mptr);
-  void world_delink_model(struct world_t* wptr, struct md3_model_t* mptr);
+  void world_link_model(struct world_t* wptr, md3_model_t* mptr);
+  void world_delink_model(struct world_t* wptr, md3_model_t* mptr);
 
-  void world_add_texture(struct world_t* wptr, struct tga_t* tptr, char* name, struct md3_shader_t* sptr);
+  void world_add_texture(struct world_t* wptr, struct tga_t* tptr, char* name, md3_shader_t* sptr);
   void world_del_texture(struct world_t* wptr, struct tga_t* text);
   void world_using_texture(struct world_t* wptr, struct tga_t* text);
   void world_not_using_texture(struct world_t* wptr, struct tga_t* text);
 
-  struct tga_t* world_texture_cached(struct world_t* wptr, char* name, struct md3_shader_t* sptr);
+  struct tga_t* world_texture_cached(struct world_t* wptr, char* name, md3_shader_t* sptr);
 
-  struct md3_model_t* world_get_model_by_name(char* name);
-  struct md3_model_t* world_get_model_by_type(enum MD3_BODY_PARTS type);
+  md3_model_t* world_get_model_by_name(char* name);
+  md3_model_t* world_get_model_by_type(enum MD3_BODY_PARTS type);
 
   void set_model_animation(enum MD3_ANIMATIONS id);
   void world_stop_model_animation(int model_types);
 
-  void world_tick_model(struct md3_model_t* m);
+  void world_tick_model(md3_model_t* m);
 
   void rotate_model(enum MD3_BODY_PARTS type, int axis, float degree);
   void rotate_model_absolute(enum MD3_BODY_PARTS type, int axis, float degree);
@@ -228,7 +228,7 @@ extern "C"
 
   void apply_light(GLenum gllight, struct light_t* light);
   void apply_material(struct material_t* material);
-  void apply_texture(struct md3_shader_t* sptr);
+  void apply_texture(md3_shader_t* sptr);
 
   void init_light(struct light_t* light);
   void init_camera(struct camera_t* camera);

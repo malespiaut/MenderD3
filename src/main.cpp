@@ -32,7 +32,7 @@
 #include "gui.h"
 
 void
-a(struct md3_model_t* m)
+a(md3_model_t* m)
 {
   int i = 0;
   for (; i < m->num_tags; ++i)
@@ -54,7 +54,7 @@ main(int argc, char** argv)
   /* load the full model */
   // load_model("../models/sarge.mod");
   // load_weapon("../models/weapons2/rocketl/rocketl.md3", "../");
-  /*struct md3_model_t* m = world_get_model_by_type(MD3_WEAPON);
+  /*md3_model_t* m = world_get_model_by_type(MD3_WEAPON);
   unload_weapon(m);*/
 
   // world_set_options(g_world, 0, RENDER_TEXTURES);

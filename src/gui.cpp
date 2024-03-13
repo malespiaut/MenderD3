@@ -268,7 +268,7 @@ model_widget::load()
      *	For this reason after the model has been loaded we must relink
      *	the weapon back into the new tree.
      */
-    struct md3_model_t* weapon = world_get_model_by_type(MD3_WEAPON);
+    md3_model_t* weapon = world_get_model_by_type(MD3_WEAPON);
     if (this->model)
       unload_model(this->model, 0);
 
@@ -887,7 +887,7 @@ srot_widget::srot_widget(int strips, Qt::Orientation orientation, const QString&
  *	A new object was selected.
  */
 void
-srot_widget::object_selected(struct md3_model_t* model)
+srot_widget::object_selected(md3_model_t* model)
 {
 
   char* title = "";

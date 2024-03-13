@@ -31,7 +31,7 @@
 /*
  *	Valid animations.
  */
-static struct md3_anim_names_t anim_structs[] = {
+static md3_anim_names_t anim_structs[] = {
   /*	animation id		animation name		animation flags		*/
   {BOTH_DEATH1, "BOTH_DEATH1", ANIM_BODY | ANIM_LEGS},
   {BOTH_DEAD1, "BOTH_DEAD1", ANIM_BODY | ANIM_LEGS},
@@ -59,11 +59,11 @@ static struct md3_anim_names_t anim_structs[] = {
   {LEGS_IDLECR, "LEGS_IDLECR", ANIM_LEGS},
   {LEGS_TURN, "LEGS_TURN", ANIM_LEGS}};
 
-static void md3_load_surfaces(struct md3_model_t* model, char* texture_path_prefix);
-static void md3_make_normal(struct md3_vertex_t* vertex);
+static void md3_load_surfaces(md3_model_t* model, char* texture_path_prefix);
+static void md3_make_normal(md3_vertex_t* vertex);
 
-static void load_texture_for_model(struct md3_model_t* model, char* texture, char* surface);
-static int load_anim_file(char* file, struct md3_anim_t* aptr);
+static void load_texture_for_model(md3_model_t* model, char* texture, char* surface);
+static int load_anim_file(char* file, md3_anim_t* aptr);
 
 /*
  *	Load an MD3 model.
@@ -72,16 +72,16 @@ static int load_anim_file(char* file, struct md3_anim_t* aptr);
  *	Use texture_path_prefix only if you want to use the texture specified within the MD3
  *	and not the skin stuff.  Otherwise pass NULL.
  */
-struct md3_model_t*
+md3_model_t*
 md3_load_model(char* file, char* texture_path_prefix)
 {
-  struct md3_model_t* model = (struct md3_model_t*)malloc(sizeof(struct md3_model_t));
+  md3_model_t* model = (md3_model_t*)malloc(sizeof(md3_model_t));
 
 #ifdef MD3_DEBUG
   int i = 0;
 #endif
 
-  memset(model, 0, sizeof(struct md3_model_t));
+  memset(model, 0, sizeof(md3_model_t));
 
   /*
    *	Open model file and map it into memory.
@@ -124,7 +124,7 @@ md3_load_model(char* file, char* texture_path_prefix)
 #endif
 
   /* FRAMES */
-  LOAD_ARRAY(model->frames, struct md3_frame_t, model->num_frames, 0, model->ofs_frames, model->fptr);
+  LOAD_ARRAY(model->frames, md3_frame_t, model->num_frames, 0, model->ofs_frames, model->fptr);
 
 #ifdef MD3_DEBUG
   printf("Frames loaded: %i\n", i);
@@ -134,11 +134,11 @@ md3_load_model(char* file, char* texture_path_prefix)
 #endif
 
   /* TAGS */
-  LOAD_ARRAY(model->tags, struct md3_tag_t, (model->num_tags * model->num_frames), 0, model->ofs_tags, model->fptr);
+  LOAD_ARRAY(model->tags, md3_tag_t, (model->num_tags * model->num_frames), 0, model->ofs_tags, model->fptr);
 
   /* links - depend on number of tags (actual links are made later) */
-  model->links = (struct md3_model_t**)malloc(sizeof(struct md3_model_t*) * model->num_tags);
-  memset(model->links, 0, (sizeof(struct md3_model_t*) * model->num_tags));
+  model->links = (md3_model_t**)malloc(sizeof(md3_model_t*) * model->num_tags);
+  memset(model->links, 0, (sizeof(md3_model_t*) * model->num_tags));
 
 #ifdef MD3_DEBUG
   printf("Tags loaded: %i\n", i);
@@ -153,7 +153,7 @@ md3_load_model(char* file, char* texture_path_prefix)
 #ifdef MD3_DEBUG
   printf("Surfaces loaded: %i\n", model->num_surfaces);
   {
-    struct md3_surface_t* sptr = model->surface_ptr;
+    md3_surface_t* sptr = model->surface_ptr;
     int sn = 0;
     while (sptr)
     {
@@ -197,9 +197,9 @@ md3_load_model(char* file, char* texture_path_prefix)
 }
 
 static void
-md3_load_surfaces(struct md3_model_t* model, char* texture_path_prefix)
+md3_load_surfaces(md3_model_t* model, char* texture_path_prefix)
 {
-  struct md3_surface_t* sptr = NULL;
+  md3_surface_t* sptr = NULL;
   int surface_base = 0;
   int surface_start = 0;
   int shader_base = 0;
@@ -209,8 +209,8 @@ md3_load_surfaces(struct md3_model_t* model, char* texture_path_prefix)
   char text_file[1024];
 
   /* assume there is at least 1 surface */
-  model->surface_ptr = (struct md3_surface_t*)malloc(sizeof(struct md3_surface_t));
-  memset(model->surface_ptr, 0, sizeof(struct md3_surface_t));
+  model->surface_ptr = (md3_surface_t*)malloc(sizeof(md3_surface_t));
+  memset(model->surface_ptr, 0, sizeof(md3_surface_t));
   sptr = model->surface_ptr;
 
   /* calculate where surfaces start */
@@ -225,7 +225,7 @@ md3_load_surfaces(struct md3_model_t* model, char* texture_path_prefix)
     fread(&sptr->ident, ((sizeof(int) * 11) + (sizeof(char) * MAX_QPATH)), 1, model->fptr);
 
     /* load shaders */
-    sptr->shader = (struct md3_shader_t*)malloc(sizeof(struct md3_shader_t) * sptr->num_shaders);
+    sptr->shader = (md3_shader_t*)malloc(sizeof(md3_shader_t) * sptr->num_shaders);
     shader_base = (surface_start + sptr->ofs_shaders);
     for (i = 0; i < sptr->num_shaders; ++i)
     {
@@ -288,14 +288,14 @@ md3_load_surfaces(struct md3_model_t* model, char* texture_path_prefix)
     }
 
     /* load triangles */
-    LOAD_ARRAY(sptr->triangle, struct md3_triangle_t, sptr->num_triangles, surface_start, sptr->ofs_triangles, model->fptr);
+    LOAD_ARRAY(sptr->triangle, md3_triangle_t, sptr->num_triangles, surface_start, sptr->ofs_triangles, model->fptr);
     model->total_triangles += sptr->num_triangles;
 
     /* load texture coordinates */
-    LOAD_ARRAY(sptr->st, struct md3_texcoord_t, sptr->num_verts, surface_start, sptr->ofs_st, model->fptr);
+    LOAD_ARRAY(sptr->st, md3_texcoord_t, sptr->num_verts, surface_start, sptr->ofs_st, model->fptr);
 
     /* load verticies */
-    sptr->vertex = (struct md3_vertex_t*)malloc(sizeof(struct md3_vertex_t) * (sptr->num_verts * sptr->num_frames));
+    sptr->vertex = (md3_vertex_t*)malloc(sizeof(md3_vertex_t) * (sptr->num_verts * sptr->num_frames));
     vert_base = (surface_start + sptr->ofs_xyznormal);
     for (i = 0; i < (sptr->num_frames * sptr->num_verts); ++i)
     {
@@ -310,8 +310,8 @@ md3_load_surfaces(struct md3_model_t* model, char* texture_path_prefix)
     if ((surface + 1) < model->num_surfaces)
     {
       surface_start += sptr->ofs_end;
-      sptr->next = (struct md3_surface_t*)malloc(sizeof(struct md3_surface_t));
-      memset(sptr->next, 0, sizeof(struct md3_surface_t));
+      sptr->next = (md3_surface_t*)malloc(sizeof(md3_surface_t));
+      memset(sptr->next, 0, sizeof(md3_surface_t));
       sptr = sptr->next;
     }
   }
@@ -321,9 +321,9 @@ md3_load_surfaces(struct md3_model_t* model, char* texture_path_prefix)
  *	Unload a model and deallocate memory used by the structures.
  */
 void
-md3_unload_model(struct md3_model_t* model)
+md3_unload_model(md3_model_t* model)
 {
-  struct md3_surface_t* next_surface = NULL;
+  md3_surface_t* next_surface = NULL;
   int i = 0;
 
   if (!model)
@@ -382,7 +382,7 @@ md3_unload_model(struct md3_model_t* model)
  *	To x, y, z coordinates.
  */
 static void
-md3_make_normal(struct md3_vertex_t* vertex)
+md3_make_normal(md3_vertex_t* vertex)
 {
   float lat, lng;
 
@@ -410,7 +410,7 @@ md3_make_normal(struct md3_vertex_t* vertex)
  *
  *	Returns root model loaded.
  */
-struct md3_model_t*
+md3_model_t*
 load_model(char* file)
 {
   FILE* fptr = NULL;
@@ -419,11 +419,11 @@ load_model(char* file)
   char name[64];
   char mfile[1024];
   char line_type;
-  struct md3_model_t* model = NULL;
+  md3_model_t* model = NULL;
   char* text_path = NULL;
   int root_model = 1;
 
-  struct md3_model_t* models[10] = {0};
+  md3_model_t* models[10] = {0};
   int loaded = 0;
   int i = 0;
 
@@ -548,7 +548,7 @@ load_model(char* file)
  *	If unload_weapon_link is 0 the weapon link will not be unloaded.
  */
 void
-unload_model(struct md3_model_t* model, int unload_weapon_link)
+unload_model(md3_model_t* model, int unload_weapon_link)
 {
   int link = 0;
 
@@ -570,10 +570,10 @@ unload_model(struct md3_model_t* model, int unload_weapon_link)
 /*
  *	Load a weapon and add to the world.
  */
-struct md3_model_t*
+md3_model_t*
 load_weapon(char* path, char* texture_path_prefix)
 {
-  struct md3_model_t* w = md3_load_model(path, texture_path_prefix);
+  md3_model_t* w = md3_load_model(path, texture_path_prefix);
   if (!w)
     return NULL;
   w->model_name = strdup("weapon");
@@ -587,7 +587,7 @@ load_weapon(char* path, char* texture_path_prefix)
  *	Unload a weapon and delete from the world.
  */
 void
-unload_weapon(struct md3_model_t* w)
+unload_weapon(md3_model_t* w)
 {
   world_delink_model(g_world, w);
   world_del_model(g_world, w);
@@ -600,7 +600,7 @@ unload_weapon(struct md3_model_t* w)
  *	Return number of links made.
  */
 int
-md3_link_models(struct md3_model_t* parent, struct md3_model_t* child)
+md3_link_models(md3_model_t* parent, md3_model_t* child)
 {
   int ctag;
   int ptag;
@@ -634,7 +634,7 @@ md3_link_models(struct md3_model_t* parent, struct md3_model_t* child)
  *	Return 1 if the link was broken.
  */
 int
-md3_unlink_models(struct md3_model_t* parent, struct md3_model_t* child)
+md3_unlink_models(md3_model_t* parent, md3_model_t* child)
 {
   int link = 0;
 
@@ -661,12 +661,12 @@ md3_unlink_models(struct md3_model_t* parent, struct md3_model_t* child)
  *	Returns number of animations loaded.
  */
 static int
-load_anim_file(char* file, struct md3_anim_t* aptr)
+load_anim_file(char* file, md3_anim_t* aptr)
 {
   FILE* fptr = NULL;
   char buf[1024] = {0};
-  struct md3_anim_names_t* anim_struct;
-  struct md3_anim_t tmp_anim;
+  md3_anim_names_t* anim_struct;
+  md3_anim_t tmp_anim;
   int loaded = 0;
   int id = 0;
   int legs_offset = 0;
@@ -675,7 +675,7 @@ load_anim_file(char* file, struct md3_anim_t* aptr)
   if (!fptr)
     return 0;
 
-  memset(aptr, 0, (sizeof(struct md3_anim_t) * MD3_MAX_ANIMS));
+  memset(aptr, 0, (sizeof(md3_anim_t) * MD3_MAX_ANIMS));
 
   while (!feof(fptr))
   {
@@ -688,7 +688,7 @@ load_anim_file(char* file, struct md3_anim_t* aptr)
     if (!IS_NUMERIC(*buf))
       continue;
 
-    memset(&tmp_anim, 0, sizeof(struct md3_anim_t));
+    memset(&tmp_anim, 0, sizeof(md3_anim_t));
 
     /*
      *	Try to read this line in.
@@ -709,7 +709,7 @@ load_anim_file(char* file, struct md3_anim_t* aptr)
     id = anim_struct->id;
 
     /* Copy it into the correct place in the array */
-    memcpy(&aptr[id], &tmp_anim, sizeof(struct md3_anim_t));
+    memcpy(&aptr[id], &tmp_anim, sizeof(md3_anim_t));
 
     /*
      *	loop is the last X frames to be looped,
@@ -752,9 +752,9 @@ load_anim_file(char* file, struct md3_anim_t* aptr)
  *	Load a texture for a specific surface for the given model.
  */
 static void
-load_texture_for_model(struct md3_model_t* model, char* texture, char* surface)
+load_texture_for_model(md3_model_t* model, char* texture, char* surface)
 {
-  struct md3_surface_t* sptr = model->surface_ptr;
+  md3_surface_t* sptr = model->surface_ptr;
   while (sptr)
   {
     if (!strcmp(sptr->name, surface))
@@ -805,7 +805,7 @@ load_texture_for_model(struct md3_model_t* model, char* texture, char* surface)
 /*
  *	Return the assoicated animation structure by the id.
  */
-struct md3_anim_names_t*
+md3_anim_names_t*
 get_animation_by_id(enum MD3_ANIMATIONS id)
 {
   int i = 0;
@@ -818,7 +818,7 @@ get_animation_by_id(enum MD3_ANIMATIONS id)
 /*
  *	Return the assoicated animation structure by the name.
  */
-struct md3_anim_names_t*
+md3_anim_names_t*
 get_animation_by_name(char* name)
 {
   int i = 0;
@@ -834,7 +834,7 @@ get_animation_by_name(char* name)
 void
 load_light_model(char* file, int light_num)
 {
-  struct md3_model_t* m = NULL;
+  md3_model_t* m = NULL;
   char buf[64] = {0};
 
   m = md3_load_model(file, "../");

@@ -86,7 +86,7 @@ public slots:
 private:
   enum loadable_types type;
   QPushButton* open;
-  struct md3_model_t* model;
+  md3_model_t* model;
 };
 
 class animate_widget : public QGroupBox
@@ -173,7 +173,7 @@ class srot_widget : public QGroupBox
 public:
   srot_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent = 0, const char* name = 0);
 
-  void object_selected(struct md3_model_t* model);
+  void object_selected(md3_model_t* model);
 
 public slots:
   void scale_changed(int s_factor);
@@ -183,7 +183,7 @@ public slots:
   void resets_clicked();
 
 private:
-  struct md3_model_t* selected_model;
+  md3_model_t* selected_model;
 
   QGridLayout* move_grid;
 

@@ -46,7 +46,7 @@
 /* global world object */
 struct world_t* g_world = NULL;
 
-static int get_next_frame(struct md3_anim_state_t* as);
+static int get_next_frame(md3_anim_state_t* as);
 static void _rotate_model(enum MD3_BODY_PARTS type, int axis, float degree, int absolute);
 
 /*
@@ -107,7 +107,7 @@ world_free(struct world_t* wptr)
  *	Add a model to the world.
  */
 void
-world_add_model(struct world_t* wptr, struct md3_model_t* mptr, int root)
+world_add_model(struct world_t* wptr, md3_model_t* mptr, int root)
 {
   struct world_link_models_t* add = (struct world_link_models_t*)malloc(sizeof(struct world_link_models_t));
   memset(add, 0, sizeof(struct world_link_models_t));
@@ -129,7 +129,7 @@ world_add_model(struct world_t* wptr, struct md3_model_t* mptr, int root)
  *	Actual deallocate of the model is done my md3_unload_model()
  */
 void
-world_del_model(struct world_t* wptr, struct md3_model_t* mptr)
+world_del_model(struct world_t* wptr, md3_model_t* mptr)
 {
   struct world_link_models_t* del = wptr->models;
   struct world_link_models_t* last = NULL;
@@ -161,7 +161,7 @@ world_del_model(struct world_t* wptr, struct md3_model_t* mptr)
  *	Link a model from the others.
  */
 void
-world_link_model(struct world_t* wptr, struct md3_model_t* mptr)
+world_link_model(struct world_t* wptr, md3_model_t* mptr)
 {
   struct world_link_models_t* lm = wptr->models;
   if (!mptr)
@@ -178,7 +178,7 @@ world_link_model(struct world_t* wptr, struct md3_model_t* mptr)
  *	Delink a model from the others.
  */
 void
-world_delink_model(struct world_t* wptr, struct md3_model_t* mptr)
+world_delink_model(struct world_t* wptr, md3_model_t* mptr)
 {
   struct world_link_models_t* lm = wptr->models;
   if (!mptr)
@@ -195,7 +195,7 @@ world_delink_model(struct world_t* wptr, struct md3_model_t* mptr)
  *	Cache a texture.
  */
 void
-world_add_texture(struct world_t* wptr, struct tga_t* tptr, char* name, struct md3_shader_t* sptr)
+world_add_texture(struct world_t* wptr, struct tga_t* tptr, char* name, md3_shader_t* sptr)
 {
   struct world_texture_t* add = (struct world_texture_t*)malloc(sizeof(struct world_texture_t));
 
@@ -313,7 +313,7 @@ world_not_using_texture(struct world_t* wptr, struct tga_t* text)
  *	Returns pointer to tga_t structure if it exists.
  */
 struct tga_t*
-world_texture_cached(struct world_t* wptr, char* name, struct md3_shader_t* sptr)
+world_texture_cached(struct world_t* wptr, char* name, md3_shader_t* sptr)
 {
   struct world_texture_t* t = wptr->texts;
 
@@ -339,7 +339,7 @@ world_texture_cached(struct world_t* wptr, char* name, struct md3_shader_t* sptr
 /*
  *	Return the model structure for the assoicated model name.
  */
-struct md3_model_t*
+md3_model_t*
 world_get_model_by_name(char* name)
 {
   struct world_link_models_t* wmodel = g_world->models;
@@ -360,7 +360,7 @@ world_get_model_by_name(char* name)
  *		MD3_LEGS
  *		MD3_WEAPON
  */
-struct md3_model_t*
+md3_model_t*
 world_get_model_by_type(enum MD3_BODY_PARTS type)
 {
   struct world_link_models_t* wmodel = g_world->models;
@@ -379,8 +379,8 @@ world_get_model_by_type(enum MD3_BODY_PARTS type)
 void
 set_model_animation(enum MD3_ANIMATIONS id)
 {
-  struct md3_anim_names_t* inf = NULL;
-  struct md3_model_t* m = NULL;
+  md3_anim_names_t* inf = NULL;
+  md3_model_t* m = NULL;
 
 #if 0
 	if (id == NO_ANIM) {
@@ -441,7 +441,7 @@ void
 world_stop_model_animation(int model_types)
 {
   struct world_link_models_t* lm = NULL;
-  struct md3_model_t* m = NULL;
+  md3_model_t* m = NULL;
 
   /* iterate through each model */
   lm = g_world->models;
@@ -461,7 +461,7 @@ world_stop_model_animation(int model_types)
  *	Update the animation state for the given model.
  */
 void
-world_tick_model(struct md3_model_t* m)
+world_tick_model(md3_model_t* m)
 {
   double now, elapsed, frame_duration;
 
@@ -493,7 +493,7 @@ world_tick_model(struct md3_model_t* m)
  *	Get the next frame for the animation state.
  */
 static int
-get_next_frame(struct md3_anim_state_t* as)
+get_next_frame(md3_anim_state_t* as)
 {
   int next = (as->frame + 1);
 
@@ -577,7 +577,7 @@ rotate_all_models_absolute(int axis, float degree, unsigned int exclude)
 static void
 _rotate_model(enum MD3_BODY_PARTS type, int axis, float degree, int absolute)
 {
-  struct md3_model_t* m = NULL;
+  md3_model_t* m = NULL;
 
   if ((axis != X_AXIS) && (axis != Y_AXIS) && (axis != Z_AXIS))
     /* not a valid axis */
@@ -602,7 +602,7 @@ _rotate_model(enum MD3_BODY_PARTS type, int axis, float degree, int absolute)
 void
 scale_model(enum MD3_BODY_PARTS type, float factor)
 {
-  struct md3_model_t* m = NULL;
+  md3_model_t* m = NULL;
   m = world_get_model_by_type(type);
   if (!m)
     return;
@@ -704,7 +704,7 @@ apply_material(struct material_t* material)
  *	Bind the texture within OpenGL.
  */
 void
-apply_texture(struct md3_shader_t* sptr)
+apply_texture(md3_shader_t* sptr)
 {
   /* if no texture exists, it cannot be bound */
   if (!sptr->texture)

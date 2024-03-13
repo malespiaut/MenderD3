@@ -19,6 +19,8 @@
 #ifndef _MD3_RENDER_H
 #define _MD3_RENDER_H
 
+#include "md3_parse.h"
+
 /*
  *	Linearly interpolate a vertex.
  *
@@ -64,8 +66,8 @@ extern "C"
 
   void render_flashlight();
 
-  void md3_render(struct md3_model_t* model, int apply_names, struct md3_tag_t* link_tag);
-  void md3_render_single(struct md3_model_t* model, int apply_names);
+  void md3_render(md3_model_t* model, int apply_names, md3_tag_t* link_tag);
+  void md3_render_single(md3_model_t* model, int apply_names);
 
   unsigned int make_bounding_box();
   unsigned int make_tes_plane();

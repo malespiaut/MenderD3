@@ -50,7 +50,7 @@ struct material_t glass_material = {
  *	The pseudo tag is used for rendering the root model
  *	for applied custom rotation.
  */
-struct md3_tag_t pseudo_tag = {
+md3_tag_t pseudo_tag = {
   {0},
   {0, 0, 0},
   {{1, 0, 0}, /* the normal axis is the identity matrix */
@@ -59,7 +59,7 @@ struct md3_tag_t pseudo_tag = {
 
 static void render_scene();
 static void render_depth_of_field();
-static void apply_custom_rotation(struct md3_model_t* model, struct md3_tag_t* tag, quat_t* quat);
+static void apply_custom_rotation(md3_model_t* model, md3_tag_t* tag, quat_t* quat);
 static void render_primitives_aa(int aa, int apply_names);
 
 /*
@@ -209,7 +209,7 @@ void
 render_flashlight()
 {
   int lighting_enabled = WORLD_IS_SET(ENGINE_LIGHTING);
-  struct md3_model_t* light_model = world_get_model_by_type(MD3_LIGHT);
+  md3_model_t* light_model = world_get_model_by_type(MD3_LIGHT);
 
   /* disable lighting */
   world_set_options(g_world, 0, ENGINE_LIGHTING);
@@ -247,14 +247,14 @@ render_flashlight()
  *	If the base model is passed, give link_tag as NULL.
  */
 void
-md3_render(struct md3_model_t* model, int apply_names, struct md3_tag_t* link_tag)
+md3_render(md3_model_t* model, int apply_names, md3_tag_t* link_tag)
 {
   int i = 0;
   int frame;
   int next_frame;
 
-  struct md3_tag_t* tag = NULL;
-  struct md3_tag_t* next_tag = NULL;
+  md3_tag_t* tag = NULL;
+  md3_tag_t* next_tag = NULL;
   int itag = 0;
   float* rot1 = NULL;
   float* rot2 = NULL;
@@ -366,13 +366,13 @@ md3_render(struct md3_model_t* model, int apply_names, struct md3_tag_t* link_ta
  *	There is no SLERP here.
  */
 void
-md3_render_single(struct md3_model_t* model, int apply_names)
+md3_render_single(md3_model_t* model, int apply_names)
 {
-  struct md3_surface_t* sptr = model->surface_ptr;
-  struct md3_vertex_t* vptr1 = NULL;
-  struct md3_vertex_t* vptr2 = NULL;
-  struct md3_vertex_t vptr;
-  struct md3_texcoord_t* tptr = NULL;
+  md3_surface_t* sptr = model->surface_ptr;
+  md3_vertex_t* vptr1 = NULL;
+  md3_vertex_t* vptr2 = NULL;
+  md3_vertex_t vptr;
+  md3_texcoord_t* tptr = NULL;
   struct tga_t* texture = NULL;
   int frame_offset;
   int next_frame_offset;
@@ -447,7 +447,7 @@ md3_render_single(struct md3_model_t* model, int apply_names)
      */
     if (model->draw_bounding_box && (sptr == model->surface_ptr))
     {
-      struct md3_frame_t* f = &model->frames[0];
+      md3_frame_t* f = &model->frames[0];
       float r = (f->radius / 2.5f);
 
       glDisable(GL_LIGHTING);
@@ -470,7 +470,7 @@ md3_render_single(struct md3_model_t* model, int apply_names)
 }
 
 static void
-apply_custom_rotation(struct md3_model_t* model, struct md3_tag_t* tag, quat_t* quat)
+apply_custom_rotation(md3_model_t* model, md3_tag_t* tag, quat_t* quat)
 {
   quat_t c_local;
   quat_init(&c_local);
