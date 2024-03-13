@@ -47,7 +47,7 @@
 struct world_t* g_world = NULL;
 
 static int get_next_frame(md3_anim_state_t* as);
-static void _rotate_model(enum MD3_BODY_PARTS type, int axis, float degree, int absolute);
+static void _rotate_model(md3_body_parts_e type, int axis, float degree, int absolute);
 
 /*
  *	Construct and return a new world object.
@@ -361,7 +361,7 @@ world_get_model_by_name(char* name)
  *		MD3_WEAPON
  */
 md3_model_t*
-world_get_model_by_type(enum MD3_BODY_PARTS type)
+world_get_model_by_type(md3_body_parts_e type)
 {
   struct world_link_models_t* wmodel = g_world->models;
   while (wmodel)
@@ -377,7 +377,7 @@ world_get_model_by_type(enum MD3_BODY_PARTS type)
  *	Set the animation for the model.
  */
 void
-set_model_animation(enum MD3_ANIMATIONS id)
+set_model_animation(md3_animations_e id)
 {
   md3_anim_names_t* inf = NULL;
   md3_model_t* m = NULL;
@@ -512,7 +512,7 @@ get_next_frame(md3_anim_state_t* as)
  *		Z_AXIS
  */
 void
-rotate_model(enum MD3_BODY_PARTS type, int axis, float degree)
+rotate_model(md3_body_parts_e type, int axis, float degree)
 {
   _rotate_model(type, axis, degree, 0);
 }
@@ -526,7 +526,7 @@ rotate_model(enum MD3_BODY_PARTS type, int axis, float degree)
  *		Z_AXIS
  */
 void
-rotate_model_absolute(enum MD3_BODY_PARTS type, int axis, float degree)
+rotate_model_absolute(md3_body_parts_e type, int axis, float degree)
 {
   _rotate_model(type, axis, degree, 1);
 }
@@ -575,7 +575,7 @@ rotate_all_models_absolute(int axis, float degree, unsigned int exclude)
  *		rotate_model_absolute()
  */
 static void
-_rotate_model(enum MD3_BODY_PARTS type, int axis, float degree, int absolute)
+_rotate_model(md3_body_parts_e type, int axis, float degree, int absolute)
 {
   md3_model_t* m = NULL;
 
@@ -600,7 +600,7 @@ _rotate_model(enum MD3_BODY_PARTS type, int axis, float degree, int absolute)
  *	Set the scale factor for a given body part.
  */
 void
-scale_model(enum MD3_BODY_PARTS type, float factor)
+scale_model(md3_body_parts_e type, float factor)
 {
   md3_model_t* m = NULL;
   m = world_get_model_by_type(type);

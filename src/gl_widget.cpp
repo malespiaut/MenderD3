@@ -475,7 +475,7 @@ gl_widget::select_object(int x, int y)
     this->selected_object = NULL;
   else
   {
-    this->selected_object = world_get_model_by_type((enum MD3_BODY_PARTS)target);
+    this->selected_object = world_get_model_by_type((md3_body_parts_e)target);
 
     /* turn on rendering this objects bounding box */
     if (this->selected_object)

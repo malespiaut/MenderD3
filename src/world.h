@@ -208,18 +208,18 @@ extern "C"
   struct tga_t* world_texture_cached(struct world_t* wptr, char* name, md3_shader_t* sptr);
 
   md3_model_t* world_get_model_by_name(char* name);
-  md3_model_t* world_get_model_by_type(enum MD3_BODY_PARTS type);
+  md3_model_t* world_get_model_by_type(md3_body_parts_e type);
 
-  void set_model_animation(enum MD3_ANIMATIONS id);
+  void set_model_animation(md3_animations_e id);
   void world_stop_model_animation(int model_types);
 
   void world_tick_model(md3_model_t* m);
 
-  void rotate_model(enum MD3_BODY_PARTS type, int axis, float degree);
-  void rotate_model_absolute(enum MD3_BODY_PARTS type, int axis, float degree);
+  void rotate_model(md3_body_parts_e type, int axis, float degree);
+  void rotate_model_absolute(md3_body_parts_e type, int axis, float degree);
   void rotate_all_models_absolute(int axis, float degree, unsigned int exclude);
 
-  void scale_model(enum MD3_BODY_PARTS type, float factor);
+  void scale_model(md3_body_parts_e type, float factor);
   void scale_all_models(float factor, unsigned int exclude);
 
   void world_set_options(struct world_t* wptr, int enable, int disable);

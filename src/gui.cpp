@@ -449,7 +449,7 @@ animate_widget::reset_animation()
 void
 animate_widget::tl_clicked()
 {
-  enum MD3_ANIMATIONS anims[] = {
+  md3_animations_e anims[] = {
     BOTH_DEATH1,
     BOTH_DEATH2,
     BOTH_DEATH3,
@@ -463,7 +463,7 @@ animate_widget::tl_clicked()
   if (!selected)
     return;
 
-  set_model_animation((enum MD3_ANIMATIONS)anims[selected - 1]);
+  set_model_animation((md3_animations_e)anims[selected - 1]);
 }
 
 /*
@@ -474,7 +474,7 @@ animate_widget::tl_clicked()
 void
 animate_widget::t_clicked()
 {
-  enum MD3_ANIMATIONS anims[] = {
+  md3_animations_e anims[] = {
     TORSO_GESTURE,
     TORSO_ATTACK,
     TORSO_ATTACK2,
@@ -489,7 +489,7 @@ animate_widget::t_clicked()
   if (!selected)
     return;
 
-  set_model_animation((enum MD3_ANIMATIONS)anims[selected - 1]);
+  set_model_animation((md3_animations_e)anims[selected - 1]);
 }
 
 /*
@@ -500,7 +500,7 @@ animate_widget::t_clicked()
 void
 animate_widget::l_clicked()
 {
-  enum MD3_ANIMATIONS anims[] = {
+  md3_animations_e anims[] = {
     LEGS_WALKCR,
     LEGS_WALK,
     LEGS_RUN,
@@ -520,7 +520,7 @@ animate_widget::l_clicked()
   if (!selected)
     return;
 
-  set_model_animation((enum MD3_ANIMATIONS)anims[selected - 1]);
+  set_model_animation((md3_animations_e)anims[selected - 1]);
 }
 
 /*

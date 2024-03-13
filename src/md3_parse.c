@@ -507,7 +507,7 @@ load_model(char* file)
       char model[64];
       char surface[64];
       int m = 0;
-      enum MD3_BODY_PARTS model_type = 0;
+      md3_body_parts_e model_type = 0;
 
       sscanf(buf, "%s %s %s", model, surface, name);
       sprintf(mfile, "%s%s", (text_path ? text_path : ""), name);
@@ -806,7 +806,7 @@ load_texture_for_model(md3_model_t* model, char* texture, char* surface)
  *	Return the assoicated animation structure by the id.
  */
 md3_anim_names_t*
-get_animation_by_id(enum MD3_ANIMATIONS id)
+get_animation_by_id(md3_animations_e id)
 {
   int i = 0;
   for (; i < MD3_MAX_ANIMS; ++i)

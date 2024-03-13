@@ -96,6 +96,7 @@ extern "C"
 
     ETHER
   };
+  typedef enum MD3_BODY_PARTS md3_body_parts_e;
 
 // none of these should be aligned
 #pragma pack(1)
@@ -204,10 +205,11 @@ extern "C"
     LEGS_IDLECR,
     LEGS_TURN
   };
+  typedef enum MD3_ANIMATIONS md3_animations_e;
 
   struct md3_anim_names_t
   {
-    enum MD3_ANIMATIONS id;
+    md3_animations_e id;
     char* name;
     int flags;
   };
@@ -228,7 +230,7 @@ extern "C"
     int frames;
     int loop;
     int fps;
-    enum MD3_ANIMATIONS anim_id;
+    md3_animations_e anim_id;
   };
 
   //	Model animation state.
@@ -270,12 +272,12 @@ extern "C"
     // custom stuff
     md3_model_t** links; // child model links
 
-    char* model_name;              // custom model name
-    enum MD3_BODY_PARTS body_part; // the type of body part this model is
-    md3_anim_state_t anim_state;   // current animation state
-    float rot[3];                  // user defined rotation on x/y/z
-    float scale_factor;            // scaling factor (after MD3_XYZ_SCALE)
-    int draw_bounding_box;         // should bounding box be rendered?
+    char* model_name;            // custom model name
+    md3_body_parts_e body_part;  // the type of body part this model is
+    md3_anim_state_t anim_state; // current animation state
+    float rot[3];                // user defined rotation on x/y/z
+    float scale_factor;          // scaling factor (after MD3_XYZ_SCALE)
+    int draw_bounding_box;       // should bounding box be rendered?
 
     int total_triangles; // total number of triangles for model
   };
@@ -292,7 +294,7 @@ extern "C"
   int md3_link_models(md3_model_t* parent, md3_model_t* child);
   int md3_unlink_models(md3_model_t* parent, md3_model_t* child);
 
-  md3_anim_names_t* get_animation_by_id(enum MD3_ANIMATIONS id);
+  md3_anim_names_t* get_animation_by_id(md3_animations_e id);
   md3_anim_names_t* get_animation_by_name(char* name);
 
   void load_light_model(char* file, int light_num);
