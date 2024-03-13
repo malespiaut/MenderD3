@@ -37,11 +37,6 @@ extern "C"
 #define MENDERD3_VERSION "v0.5"
 
 /*
- *	Uncomment this line to enable debug mode.
- */
-#define _DEBUG
-
-/*
  *	Comment this to disable interpolation.
  */
 #define USE_INTERPOLATION
