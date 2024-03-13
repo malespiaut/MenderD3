@@ -28,16 +28,12 @@ extern "C"
 {
 #endif
 
-/*
- *	Uncomment this to enable MD3 debugging.
- */
+  //	Uncomment this to enable MD3 debugging.
 #ifdef _DEBUG
   // #define MD3_DEBUG
 #endif
 
-/*
- *	Various MD3 constants.
- */
+  //	Various MD3 constants.
 #define MD3_MAGIC_NUMBER_LITTLE_ENDIAN 0x33504449
 #define MAX_QPATH 64
 #define MD3_MAX_FRAMES 1024
@@ -45,10 +41,8 @@ extern "C"
 #define MD3_MAX_SURFACES 32
 #define MD3_XYZ_SCALE (1.0f / 64.0f)
 
-/*
- *	The size of various structures in the file -
- *	not sizeof(struct ...) on the implementation side.
- */
+  //	The size of various structures in the file -
+  //	not sizeof(struct ...) on the implementation side.
 #define MD3_SIZEOF_HEADER (MAX_QPATH + (sizeof(int) * 11))
 #define MD3_SIZEOF_FRAME ((sizeof(struct vec3_t) * 3) + sizeof(float) + (sizeof(char) * 16))
 #define MD3_SIZEOF_TAG ((sizeof(char) * MAX_QPATH) + (sizeof(struct vec3_t) * 4))
@@ -76,9 +70,7 @@ extern "C"
     fread(_dest, (sizeof(_object_type) * _elements), 1, _fptr);           \
   } while (0)
 
-  /*
-   *	Valid body parts.
-   */
+  //	Valid body parts.
   enum MD3_BODY_PARTS
   {
     MD3_HEAD = 1,
@@ -91,12 +83,10 @@ extern "C"
     ETHER
   };
 
-/* none of these should be aligned */
+// none of these should be aligned
 #pragma pack(1)
 
-  /*
-   *	MD3 structures.
-   */
+  // MD3 structures.
   struct vec3_t
   {
     float x, y, z;
@@ -113,68 +103,65 @@ extern "C"
 
   struct md3_tag_t
   {
-    char name[MAX_QPATH];  /* name of tag object		*/
-    struct vec3_t origin;  /* coordinates				*/
-    struct vec3_t axis[3]; /* orientation				*/
+    char name[MAX_QPATH];  // name of tag object
+    struct vec3_t origin;  // coordinates
+    struct vec3_t axis[3]; // orientation
   } NO_ALIGN;
 
   struct md3_shader_t
   {
-    char name[MAX_QPATH]; /* name of shader			*/
-    int shader_index;     /* shader index number		*/
+    char name[MAX_QPATH]; // name of shader
+    int shader_index;     // shader index number
 
-    struct tga_t* texture;    /* targa loaded texture													*/
-    unsigned int* gl_text_id; /* openGL texture id; points to world_texture_t.gl_text_id				*/
-    int* gl_text_bound;       /* has the texture been bound?; points to world_texture_t.dl_text_bound	*/
+    struct tga_t* texture;    // targa loaded texture
+    unsigned int* gl_text_id; // openGL texture id; points to world_texture_t.gl_text_id
+    int* gl_text_bound;       // has the texture been bound?; points to world_texture_t.dl_text_bound
   } NO_ALIGN;
 
   struct md3_triangle_t
   {
-    int index[3]; /* index of offset values into vertex list
-                                     that constitute cornders of triangle		*/
+    int index[3]; // index of offset values into vertex list that constitute cornders of triangle
   } NO_ALIGN;
 
   struct md3_texcoord_t
   {
-    float st[2]; /* texture coordinates						*/
+    float st[2]; // texture coordinates
   } NO_ALIGN;
 
   struct md3_vertex_t
   {
-    short x, y, z; /* x-y-z vector normalized by MD3_XYZ_SCALE	*/
-    short normal;  /* normal encoded vector					*/
+    short x, y, z; // x-y-z vector normalized by MD3_XYZ_SCALE
+    short normal;  // normal encoded vector
 
     float normalxyz[3];
   } NO_ALIGN;
 
   struct md3_surface_t
   {
-    struct md3_surface_t* next; /* next surface in the list					*/
+    struct md3_surface_t* next; // next surface in the list
 
-    int ident;            /* magic number								*/
-    char name[MAX_QPATH]; /* surface name								*/
-    int flags;            /* unknown flags							*/
-    int num_frames;       /* number of animation frames (== md3_model_t)	*/
-    int num_shaders;      /* number of shaders for this surface		*/
-    int num_verts;        /* number of vertexs for surface			*/
-    int num_triangles;    /* number of triangles for surface			*/
-    int ofs_triangles;    /* triangles relative offset				*/
-    int ofs_shaders;      /* shaders relative offset					*/
-    int ofs_st;           /* ST (texture) relative offset				*/
-    int ofs_xyznormal;    /* vertex relative offset					*/
-    int ofs_end;          /* end of surface relative offset			*/
+    int ident;            // magic number
+    char name[MAX_QPATH]; // surface name
+    int flags;            // unknown flags
+    int num_frames;       // number of animation frames (== md3_model_t)
+    int num_shaders;      // number of shaders for this surface
+    int num_verts;        // number of vertexs for surface
+    int num_triangles;    // number of triangles for surface
+    int ofs_triangles;    // triangles relative offset
+    int ofs_shaders;      // shaders relative offset
+    int ofs_st;           // ST (texture) relative offset
+    int ofs_xyznormal;    // vertex relative offset
+    int ofs_end;          // end of surface relative offset
 
-    struct md3_shader_t* shader;     /* array of shaders						*/
-    struct md3_triangle_t* triangle; /* array of triangles					*/
-    struct md3_texcoord_t* st;       /* array of surface textures			*/
-    struct md3_vertex_t* vertex;     /* array of vertexes					*/
+    struct md3_shader_t* shader;     // array of shaders
+    struct md3_triangle_t* triangle; // array of triangles
+    struct md3_texcoord_t* st;       // array of surface textures
+    struct md3_vertex_t* vertex;     // array of vertexes
   } NO_ALIGN;
 
 #pragma pack(8)
 
-  /*
-   *	Valid animation types.
-   */
+  //	Valid animation types.
   enum MD3_ANIMATIONS
   {
     BOTH_DEATH1 = 0,
@@ -211,17 +198,13 @@ extern "C"
   };
 #define MD3_MAX_ANIMS 25
 
-/*
- *	These are used in md3_anim_names_t::flags that tell
- *	the render what body parts this animation applies to.
- */
-#define ANIM_HEAD 0x01 /* should never really be used */
+  //	These are used in md3_anim_names_t::flags that tell
+  //	the render what body parts this animation applies to.
+#define ANIM_HEAD 0x01 // should never really be used
 #define ANIM_BODY 0x02
 #define ANIM_LEGS 0x04
 
-  /*
-   *	Animation structure.
-   */
+  //	Animation structure.
   struct md3_anim_t
   {
     char name[64];
@@ -233,55 +216,53 @@ extern "C"
     enum MD3_ANIMATIONS anim_id;
   };
 
-  /*
-   *	Model animation state.
-   */
+  //	Model animation state.
   struct md3_anim_state_t
   {
     struct md3_anim_names_t* anim_info;
-    int id; /* redundent since it's in anim_info but convenient */
+    int id; // redundent since it's in anim_info but convenient
     int frame;
     int next_frame;
     float t;
     double last_time;
-    int animated; /* set to 1 if the model is in a state of animation */
+    int animated; // set to 1 if the model is in a state of animation
   };
 
   struct md3_model_t
   {
-    FILE* fptr;    /* file pointer							*/
-    long file_len; /* file length in bytes					*/
-    byte* dptr;    /* beginning of file in memory			*/
-    // byte* sdptr;						/* beginning of file in memory (do not alter)	*/
+    FILE* fptr;    // file pointer
+    long file_len; // file length in bytes
+    byte* dptr;    // beginning of file in memory
+    // byte* sdptr; // beginning of file in memory (do not alter)
 
-    int ident;            /* md3 magic number, endianness			*/
-    int version;          /* version number of file format		*/
-    char name[MAX_QPATH]; /* model name							*/
-    int flags;            /* model flags							*/
-    int num_frames;       /* number of frames						*/
-    int num_tags;         /* number of tags						*/
-    int num_surfaces;     /* number of surfaces					*/
-    int num_skins;        /* number of skins						*/
-    int ofs_frames;       /* frames relative offset				*/
-    int ofs_tags;         /* tags relative offset					*/
-    int ofs_surfaces;     /* surfaces relative offset				*/
-    int ofs_eof;          /* EOF relative offset					*/
+    int ident;            // md3 magic number, endianness
+    int version;          // version number of file format
+    char name[MAX_QPATH]; // model name
+    int flags;            // model flags
+    int num_frames;       // number of frames
+    int num_tags;         // number of tags
+    int num_surfaces;     // number of surfaces
+    int num_skins;        // number of skins
+    int ofs_frames;       // frames relative offset
+    int ofs_tags;         // tags relative offset
+    int ofs_surfaces;     // surfaces relative offset
+    int ofs_eof;          // EOF relative offset
 
-    struct md3_frame_t* frames;        /* list of frames						*/
-    struct md3_tag_t* tags;            /* list of tags							*/
-    struct md3_surface_t* surface_ptr; /* list of surfaces						*/
+    struct md3_frame_t* frames;        // list of frames
+    struct md3_tag_t* tags;            // list of tags
+    struct md3_surface_t* surface_ptr; // list of surfaces
 
-    /* custom stuff */
-    struct md3_model_t** links; /* child model links					*/
+    // custom stuff
+    struct md3_model_t** links; // child model links
 
-    char* model_name;                   /* custom model name					*/
-    enum MD3_BODY_PARTS body_part;      /* the type of body part this model is	*/
-    struct md3_anim_state_t anim_state; /* current animation state				*/
-    float rot[3];                       /* user defined rotation on x/y/z		*/
-    float scale_factor;                 /* scaling factor (after MD3_XYZ_SCALE)	*/
-    int draw_bounding_box;              /* should bounding box be rendered?		*/
+    char* model_name;                   // custom model name
+    enum MD3_BODY_PARTS body_part;      // the type of body part this model is
+    struct md3_anim_state_t anim_state; // current animation state
+    float rot[3];                       // user defined rotation on x/y/z
+    float scale_factor;                 // scaling factor (after MD3_XYZ_SCALE)
+    int draw_bounding_box;              // should bounding box be rendered?
 
-    int total_triangles; /* total number of triangles for model	*/
+    int total_triangles; // total number of triangles for model
   };
 
   struct md3_model_t* md3_load_model(char* file, char* texture_path_prefix);
@@ -305,4 +286,4 @@ extern "C"
 }
 #endif
 
-#endif /* _MD3_PARSE_H */
+#endif // _MD3_PARSE_H
