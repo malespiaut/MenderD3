@@ -5,3 +5,4 @@ AlwaysBreakAfterReturnType: TopLevelDefinitions
 BreakBeforeBraces: Allman
 ColumnLimit: 0
 Cpp11BracedListStyle: true
+SortIncludes: false
