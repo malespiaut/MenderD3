@@ -20,6 +20,7 @@
 #define _MD3_PARSE_H
 
 #include <stdio.h>
+
 #include "definitions.h"
 #include "tga.h"
 
@@ -33,6 +34,19 @@ extern "C"
   // #define MD3_DEBUG
 #endif
 
+  typedef struct md3_anim_names_t md3_anim_names_t;
+  typedef struct md3_anim_state_t md3_anim_state_t;
+  typedef struct md3_anim_t md3_anim_t;
+  typedef struct md3_frame_t md3_frame_t;
+  typedef struct md3_model_t md3_model_t;
+  typedef struct md3_shader_t md3_shader_t;
+  typedef struct md3_surface_t md3_surface_t;
+  typedef struct md3_tag_t md3_tag_t;
+  typedef struct md3_texcoord_t md3_texcoord_t;
+  typedef struct md3_triangle_t md3_triangle_t;
+  typedef struct md3_vertex_t md3_vertex_t;
+  typedef struct vec3_t vec3_t;
+
   //	Various MD3 constants.
 #define MD3_MAGIC_NUMBER_LITTLE_ENDIAN 0x33504449
 #define MAX_QPATH 64
@@ -44,8 +58,8 @@ extern "C"
   //	The size of various structures in the file -
   //	not sizeof(struct ...) on the implementation side.
 #define MD3_SIZEOF_HEADER (MAX_QPATH + (sizeof(int) * 11))
-#define MD3_SIZEOF_FRAME ((sizeof(struct vec3_t) * 3) + sizeof(float) + (sizeof(char) * 16))
-#define MD3_SIZEOF_TAG ((sizeof(char) * MAX_QPATH) + (sizeof(struct vec3_t) * 4))
+#define MD3_SIZEOF_FRAME ((sizeof(vec3_t) * 3) + sizeof(float) + (sizeof(char) * 16))
+#define MD3_SIZEOF_TAG ((sizeof(char) * MAX_QPATH) + (sizeof(vec3_t) * 4))
 #define MD3_SIZEOF_SURFACE ((sizeof(int) * 11) + (sizeof(char) * MAX_QPATH))
 #define MD3_SIZEOF_SHADER ((sizeof(char) * MAX_QPATH) + sizeof(int))
 #define MD3_SIZEOF_TRIANGLE (sizeof(int) * 3)
@@ -94,18 +108,18 @@ extern "C"
 
   struct md3_frame_t
   {
-    struct vec3_t min_bounds;
-    struct vec3_t max_bounds;
-    struct vec3_t local_origin;
+    vec3_t min_bounds;
+    vec3_t max_bounds;
+    vec3_t local_origin;
     float radius;
     char name[16];
   } NO_ALIGN;
 
   struct md3_tag_t
   {
-    char name[MAX_QPATH];  // name of tag object
-    struct vec3_t origin;  // coordinates
-    struct vec3_t axis[3]; // orientation
+    char name[MAX_QPATH]; // name of tag object
+    vec3_t origin;        // coordinates
+    vec3_t axis[3];       // orientation
   } NO_ALIGN;
 
   struct md3_shader_t
@@ -138,7 +152,7 @@ extern "C"
 
   struct md3_surface_t
   {
-    struct md3_surface_t* next; // next surface in the list
+    md3_surface_t* next; // next surface in the list
 
     int ident;            // magic number
     char name[MAX_QPATH]; // surface name
@@ -153,10 +167,10 @@ extern "C"
     int ofs_xyznormal;    // vertex relative offset
     int ofs_end;          // end of surface relative offset
 
-    struct md3_shader_t* shader;     // array of shaders
-    struct md3_triangle_t* triangle; // array of triangles
-    struct md3_texcoord_t* st;       // array of surface textures
-    struct md3_vertex_t* vertex;     // array of vertexes
+    md3_shader_t* shader;     // array of shaders
+    md3_triangle_t* triangle; // array of triangles
+    md3_texcoord_t* st;       // array of surface textures
+    md3_vertex_t* vertex;     // array of vertexes
   } NO_ALIGN;
 
 #pragma pack(8)
@@ -190,6 +204,7 @@ extern "C"
     LEGS_IDLECR,
     LEGS_TURN
   };
+
   struct md3_anim_names_t
   {
     enum MD3_ANIMATIONS id;
@@ -219,7 +234,7 @@ extern "C"
   //	Model animation state.
   struct md3_anim_state_t
   {
-    struct md3_anim_names_t* anim_info;
+    md3_anim_names_t* anim_info;
     int id; // redundent since it's in anim_info but convenient
     int frame;
     int next_frame;
@@ -248,37 +263,37 @@ extern "C"
     int ofs_surfaces;     // surfaces relative offset
     int ofs_eof;          // EOF relative offset
 
-    struct md3_frame_t* frames;        // list of frames
-    struct md3_tag_t* tags;            // list of tags
-    struct md3_surface_t* surface_ptr; // list of surfaces
+    md3_frame_t* frames;        // list of frames
+    md3_tag_t* tags;            // list of tags
+    md3_surface_t* surface_ptr; // list of surfaces
 
     // custom stuff
-    struct md3_model_t** links; // child model links
+    md3_model_t** links; // child model links
 
-    char* model_name;                   // custom model name
-    enum MD3_BODY_PARTS body_part;      // the type of body part this model is
-    struct md3_anim_state_t anim_state; // current animation state
-    float rot[3];                       // user defined rotation on x/y/z
-    float scale_factor;                 // scaling factor (after MD3_XYZ_SCALE)
-    int draw_bounding_box;              // should bounding box be rendered?
+    char* model_name;              // custom model name
+    enum MD3_BODY_PARTS body_part; // the type of body part this model is
+    md3_anim_state_t anim_state;   // current animation state
+    float rot[3];                  // user defined rotation on x/y/z
+    float scale_factor;            // scaling factor (after MD3_XYZ_SCALE)
+    int draw_bounding_box;         // should bounding box be rendered?
 
     int total_triangles; // total number of triangles for model
   };
 
-  struct md3_model_t* md3_load_model(char* file, char* texture_path_prefix);
-  void md3_unload_model(struct md3_model_t* model);
+  md3_model_t* md3_load_model(char* file, char* texture_path_prefix);
+  void md3_unload_model(md3_model_t* model);
 
-  struct md3_model_t* load_model(char* file);
-  void unload_model(struct md3_model_t* model, int unload_weapon_link);
+  md3_model_t* load_model(char* file);
+  void unload_model(md3_model_t* model, int unload_weapon_link);
 
-  struct md3_model_t* load_weapon(char* path, char* texture_path_prefix);
-  void unload_weapon(struct md3_model_t* w);
+  md3_model_t* load_weapon(char* path, char* texture_path_prefix);
+  void unload_weapon(md3_model_t* w);
 
-  int md3_link_models(struct md3_model_t* parent, struct md3_model_t* child);
-  int md3_unlink_models(struct md3_model_t* parent, struct md3_model_t* child);
+  int md3_link_models(md3_model_t* parent, md3_model_t* child);
+  int md3_unlink_models(md3_model_t* parent, md3_model_t* child);
 
-  struct md3_anim_names_t* get_animation_by_id(enum MD3_ANIMATIONS id);
-  struct md3_anim_names_t* get_animation_by_name(char* name);
+  md3_anim_names_t* get_animation_by_id(enum MD3_ANIMATIONS id);
+  md3_anim_names_t* get_animation_by_name(char* name);
 
   void load_light_model(char* file, int light_num);
 
