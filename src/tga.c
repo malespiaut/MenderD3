@@ -15,7 +15,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
+
 #include <stdio.h>
 #include <malloc.h>
 #include <string.h>
@@ -26,68 +26,72 @@
 /*
  *	Load a tga file.
  */
-struct tga_t* load_tga(char* file) {
-	struct tga_t* tga = NULL;
-	FILE* fptr = NULL;
-	int size = 0;
-	
-	fptr = fopen(file, "rb");
-	if (!fptr)
-		return NULL;
+struct tga_t*
+load_tga(char* file)
+{
+  struct tga_t* tga = NULL;
+  FILE* fptr = NULL;
+  int size = 0;
 
-	tga = (struct tga_t*)malloc(sizeof(struct tga_t));
-	memset(tga, 0, sizeof(struct tga_t));
+  fptr = fopen(file, "rb");
+  if (!fptr)
+    return NULL;
 
-	/* read the header */
-	fread((void*)&(tga->header), 18, 1, fptr);
-	
-	tga->header.depth /= 8;
+  tga = (struct tga_t*)malloc(sizeof(struct tga_t));
+  memset(tga, 0, sizeof(struct tga_t));
 
-	/* allocate memory for the image body */
-	size = (tga->header.width * tga->header.height * tga->header.depth);
-	tga->img = (byte*)malloc(sizeof(byte) * size);
+  /* read the header */
+  fread((void*)&(tga->header), 18, 1, fptr);
 
-	/* read the body in */
-	fread((void*)tga->img, (sizeof(byte) * size), 1, fptr);
+  tga->header.depth /= 8;
 
-	fclose(fptr);
-	
-	/*
-	 *	Check for horizontal/vertical flipping.
-	 *	This value should be used to determine if
-	 *	the texture coordinate needs to be 1-coord
-	 */
-	tga->vflip = 1;
-	tga->hflip = 0;
-	if (tga->header.desc & 0x20)
-		tga->vflip = 0;
-	if (tga->header.desc & 0x10)
-		tga->hflip = 1;
+  /* allocate memory for the image body */
+  size = (tga->header.width * tga->header.height * tga->header.depth);
+  tga->img = (byte*)malloc(sizeof(byte) * size);
 
-	/* select bit-mode for opengl */
-	switch ((int)tga->header.depth) {
-		case 1:
-			tga->gl_format = GL_LUMINANCE;
-			break;
-		case 3:
-			tga->gl_format = GL_BGR;
-			break;
-		case 4:
-			tga->gl_format = GL_BGRA;
-			break;
-	};
-	tga->gl_compontents = tga->header.depth;
+  /* read the body in */
+  fread((void*)tga->img, (sizeof(byte) * size), 1, fptr);
 
-	return tga;
+  fclose(fptr);
+
+  /*
+   *	Check for horizontal/vertical flipping.
+   *	This value should be used to determine if
+   *	the texture coordinate needs to be 1-coord
+   */
+  tga->vflip = 1;
+  tga->hflip = 0;
+  if (tga->header.desc & 0x20)
+    tga->vflip = 0;
+  if (tga->header.desc & 0x10)
+    tga->hflip = 1;
+
+  /* select bit-mode for opengl */
+  switch ((int)tga->header.depth)
+  {
+    case 1:
+      tga->gl_format = GL_LUMINANCE;
+      break;
+    case 3:
+      tga->gl_format = GL_BGR;
+      break;
+    case 4:
+      tga->gl_format = GL_BGRA;
+      break;
+  };
+  tga->gl_compontents = tga->header.depth;
+
+  return tga;
 };
-
 
 /*
  *	Free a tga file.
  */
-void free_tga(struct tga_t* tga) {
-	if (!tga)
-		return;
-	free(tga->img);
-	free(tga);
+void
+free_tga(struct tga_t* tga)
+{
+  if (!tga)
+    return;
+  free(tga->img);
+  free(tga);
 }

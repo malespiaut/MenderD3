@@ -24,11 +24,9 @@ extern "C"
 {
 #endif
 
-void acc_Perspective(double fov, double aspect, double znear, double zfar, double x_offset, double y_offset,
-	double cx_offset, double cy_offset, double focus);
+  void acc_Perspective(double fov, double aspect, double znear, double zfar, double x_offset, double y_offset, double cx_offset, double cy_offset, double focus);
 
-void acc_Frustum(double left, double right, double bottom, double top, double znear, double zfar,
-	double x_offset, double y_offset, double cx_offset, double cy_offset, double focus);
+  void acc_Frustum(double left, double right, double bottom, double top, double znear, double zfar, double x_offset, double y_offset, double cx_offset, double cy_offset, double focus);
 
 #ifdef __cplusplus
 }

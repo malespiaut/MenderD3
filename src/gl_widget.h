@@ -15,7 +15,7 @@
  *  along with this program; if not, write to the Free Software
  *  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
  */
- 
+
 #ifndef _GL_WIDGET_H
 #define _GL_WIDGET_H
 
@@ -30,51 +30,50 @@
  *	The maximum number of frames to be rendered.
  *	This is just an estimation and it may go slightly over.
  */
-#define MAX_FRAMERATE		100
+#define MAX_FRAMERATE 100
 
-class gl_widget : public QOpenGLWidget {
-	Q_OBJECT
-	
-	public:
-		gl_widget(int argc, char** argv, const QSurfaceFormat& format, QWidget* parent = 0, const char* name = 0, const QOpenGLWidget* shareWidget = 0, Qt::WindowFlags f = 0);
-		~gl_widget();
-		struct md3_model_t* selected_object;					/* currently selected object	*/
-		
-	public slots:
-		void idle_cycle();		
-	
-	private:
-		/* functions */
-		void gl_widget::select_object(int x, int y);
-		
-		/* data */
-		QTimer* timer;	
-	
-		int argc;
-		char** argv;
-	
-		struct mouse_t mouse;
-		int width;
-		int height;
-		
-		/* frame rate information */
-		double next_frame_msec;
-		double last_msec;
-		int frames;
-		int frame_skip;
-		
-		int max_frame_rate;							/* maximum possible FPS */
-		
-	protected:
-		void initializeGL();
-		void resizeGL(int w, int h);
-		void paintGL();
-	
-		void mousePressEvent(QMouseEvent* e);
-		void mouseReleaseEvent(QMouseEvent* e);
-		void mouseMoveEvent(QMouseEvent* e);
-	
-	
+class gl_widget : public QOpenGLWidget
+{
+  Q_OBJECT
+
+public:
+  gl_widget(int argc, char** argv, const QSurfaceFormat& format, QWidget* parent = 0, const char* name = 0, const QOpenGLWidget* shareWidget = 0, Qt::WindowFlags f = 0);
+  ~gl_widget();
+  struct md3_model_t* selected_object; /* currently selected object	*/
+
+public slots:
+  void idle_cycle();
+
+private:
+  /* functions */
+  void gl_widget::select_object(int x, int y);
+
+  /* data */
+  QTimer* timer;
+
+  int argc;
+  char** argv;
+
+  struct mouse_t mouse;
+  int width;
+  int height;
+
+  /* frame rate information */
+  double next_frame_msec;
+  double last_msec;
+  int frames;
+  int frame_skip;
+
+  int max_frame_rate; /* maximum possible FPS */
+
+protected:
+  void initializeGL();
+  void resizeGL(int w, int h);
+  void paintGL();
+
+  void mousePressEvent(QMouseEvent* e);
+  void mouseReleaseEvent(QMouseEvent* e);
+  void mouseMoveEvent(QMouseEvent* e);
 };
 
 #endif /* _GL_WIDGET_H */
