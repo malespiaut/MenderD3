@@ -6,3 +6,5 @@ BreakBeforeBraces: Allman
 ColumnLimit: 0
 Cpp11BracedListStyle: true
 SortIncludes: false
+IndentWidth: 2
+UseTab: Never
