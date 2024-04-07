@@ -247,9 +247,9 @@ extern "C"
 
   struct md3_model_t
   {
-    FILE* fptr;    // file pointer
-    long file_len; // file length in bytes
-    unsigned char* dptr;    // beginning of file in memory
+    FILE* fptr;          // file pointer
+    long file_len;       // file length in bytes
+    unsigned char* dptr; // beginning of file in memory
     // unsigned char* sdptr; // beginning of file in memory (do not alter)
 
     int ident;            // md3 magic number, endianness

@@ -35,9 +35,9 @@ struct tga_header_t
   unsigned char color_map_type; /* type of color map [ 0=none, 1=palette ]						*/
   unsigned char image_type;     /* type of image [ 0=none, 1=indexed, 2=rgb, 3=grey, >8=rle ]	*/
 
-  short color_map_start; /* starting entry in color map			*/
-  short color_map_len;   /* total number of color map entries	*/
-  unsigned char color_map_bits;   /* number of color bits per entry		*/
+  short color_map_start;        /* starting entry in color map			*/
+  short color_map_len;          /* total number of color map entries	*/
+  unsigned char color_map_bits; /* number of color bits per entry		*/
 
   short xorig; /* x-origin, lower left		*/
   short yorig; /* y-origin, lower left		*/
