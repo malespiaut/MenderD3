@@ -182,8 +182,6 @@ struct world_t
   unsigned int gl_plane_id; /* call list id for tes plane		*/
   struct mirror_t* mirrors; /* list of mirrors					*/
   int model_triangles;      /* total triangles for a model		*/
-  int aa_factor;            /* Anti-Aliasing factor				*/
-  float depth_focus;        /* Focal point for depth of field	*/
 };
 
 #ifdef __cplusplus

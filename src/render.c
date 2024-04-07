@@ -58,9 +58,7 @@ md3_tag_t pseudo_tag = {
    {0, 0, 1}}};
 
 static void render_scene();
-static void render_depth_of_field();
 static void apply_custom_rotation(md3_model_t* model, md3_tag_t* tag, quat_t* quat);
-static void render_primitives_aa(int aa, int apply_names);
 
 /*
  *	Render the scene for the current engine setup.
@@ -68,10 +66,7 @@ static void render_primitives_aa(int aa, int apply_names);
 void
 render_c()
 {
-  if (WORLD_IS_SET(ENGINE_DEPTH_OF_FIELD))
-    render_depth_of_field();
-  else
-    render_scene();
+  render_scene();
 
   /* Flush the GL pipeline */
   glFlush();
@@ -83,57 +78,11 @@ render_c()
 static void
 render_scene()
 {
-  if (WORLD_IS_SET(ENGINE_AA))
-  {
-    /* Render using AA */
-    render_primitives_aa(g_world->aa_factor, 1);
-  }
-  else
-    /* Render with no AA */
-    render_primitives(1);
+  render_primitives(1);
 
   /* render the mirror images if enabled */
   if (WORLD_IS_SET(RENDER_MIRRORS))
     draw_mirrors(g_world->mirrors);
-}
-
-/*
- *	Render the scene using depth of field.
- */
-static void
-render_depth_of_field()
-{
-  GLdouble viewport[4];
-  double aspect;
-  int n = 0;
-  int dof_passes = 2;
-  jitter_point* j_arr = j2;
-
-  /* During DOF AA is not possible since it also uses the accum buffer */
-  int aa_enabled = WORLD_IS_SET(ENGINE_AA);
-  if (aa_enabled)
-    world_set_options(g_world, 0, ENGINE_AA);
-
-  glGetDoublev(GL_VIEWPORT, viewport);
-  aspect = (viewport[2] / viewport[3]);
-
-  glClear(GL_ACCUM_BUFFER_BIT);
-  for (; n < dof_passes; ++n)
-  {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    acc_Perspective(g_world->env.fov, aspect, g_world->env.vnear, g_world->env.vfar, 0.0, 0.0, (j_arr[n].x * JITTER_SCALE), (j_arr[n].y * JITTER_SCALE), g_world->depth_focus);
-
-    render_scene();
-
-    glAccum(GL_ACCUM, (1.0 / dof_passes));
-  }
-
-  glAccum(GL_RETURN, 1.0);
-
-  /* Re-enable AA is needed */
-  if (aa_enabled)
-    world_set_options(g_world, ENGINE_AA, 0);
 }
 
 /*
@@ -155,51 +104,6 @@ render_primitives(int apply_names)
   /* draw the flashlight */
   if (WORLD_IS_SET(RENDER_FLASHLIGHT))
     render_flashlight();
-}
-
-/*
- *	Render the primitives with AntiAliasing.
- */
-static void
-render_primitives_aa(int aa, int apply_names)
-{
-  GLdouble viewport[4];
-  double aspect;
-  int n = 0;
-  jitter_point* j_arr = NULL;
-
-  switch (aa)
-  {
-    case 2:
-      j_arr = j2;
-      break;
-    case 4:
-      j_arr = j4;
-      break;
-    case 8:
-      j_arr = j8;
-      break;
-    default:
-      /* unsupported AA factor */
-      return;
-  }
-
-  glGetDoublev(GL_VIEWPORT, viewport);
-  aspect = (viewport[2] / viewport[3]);
-
-  glClear(GL_ACCUM_BUFFER_BIT);
-  for (; n < aa; ++n)
-  {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    acc_Perspective(g_world->env.fov, aspect, g_world->env.vnear, g_world->env.vfar, (j_arr[n].x * JITTER_SCALE), (j_arr[n].y * JITTER_SCALE), 0.0, 0.0, 1.0);
-
-    render_primitives(apply_names);
-
-    glAccum(GL_ACCUM, (1.0 / aa));
-  }
-
-  glAccum(GL_RETURN, 1.0);
 }
 
 /*

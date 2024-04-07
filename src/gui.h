@@ -202,47 +202,6 @@ private:
   QWidget* base;
 };
 
-class aa_widget : public QButtonGroup
-{
-  Q_OBJECT
-
-public:
-  aa_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent = 0, const char* name = 0);
-
-public slots:
-  void aa_none_clicked();
-  void aa_2x_clicked();
-  void aa_4x_clicked();
-  void aa_8x_clicked();
-
-private:
-  QRadioButton* aa_none_rb;
-  QRadioButton* aa_2x_rb;
-  QRadioButton* aa_4x_rb;
-  QRadioButton* aa_8x_rb;
-};
-
-class dof_widget : public QGroupBox
-{
-  Q_OBJECT
-
-public:
-  dof_widget(int strips, Qt::Orientation orientation, const QString& title, QWidget* parent = 0, const char* name = 0);
-
-public slots:
-  void focus_changed(int factor);
-  void dof_toggled();
-
-private:
-  QWidget* base;
-  QGridLayout* grid;
-
-  QLabel* focus_label;
-  QSlider* focus_S;
-
-  QCheckBox* dof_cb;
-};
-
 class gui_widget : public QFrame
 {
   Q_OBJECT
@@ -266,8 +225,6 @@ private:
   animate_widget* animate;
   opt_widget* opt;
   srot_widget* srot;
-  aa_widget* aa;
-  dof_widget* dof;
 
   QLabel* credits;
 
