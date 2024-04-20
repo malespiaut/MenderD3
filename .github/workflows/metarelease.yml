@@ -1,4 +1,4 @@
-name: Meta Release Big 1
+name: Meta Release All
 
 on: [workflow_dispatch]
 
