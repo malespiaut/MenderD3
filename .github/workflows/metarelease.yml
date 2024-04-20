@@ -5,3 +5,5 @@ on: [workflow_dispatch]
 jobs:
   appimage-x86_64:
     uses: ./.github/workflows/release-appimage-x86_64.yml
+  windows:
+    uses: ./.github/workflows/release-windows.yml
