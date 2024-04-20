@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=MenderD3
+Comment=A Quake 3 model viewer.
+Comment[fr]=Une visionneuse de modèles pour Quake 3.
+Icon=md3
+Exec=md3
+Terminal=false
+Categories=Graphics;
