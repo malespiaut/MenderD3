@@ -28,7 +28,7 @@ jobs:
       - name: Get build dependencies for SDL from APT  
         run: |
           sudo apt update
-          sudo apt install -y qt6-base-dev
+          sudo apt install -y qt6-base-dev libgl-dev
 
       - name: Configure
         run: qmake6 -o Makefile src/md3.pro
