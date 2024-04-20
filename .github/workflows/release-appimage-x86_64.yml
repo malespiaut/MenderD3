@@ -28,7 +28,7 @@ jobs:
       - name: Get build dependencies from APT  
         run: |
           sudo apt update
-          sudo apt install -y qt6-base-dev libgl-dev libglu1-mesa-dev
+          sudo apt install -y qt6-base-dev libgl-dev libglu1-mesa-dev libfuse2
 
       - name: Configure
         run: qmake6 -o Makefile src/md3.pro
