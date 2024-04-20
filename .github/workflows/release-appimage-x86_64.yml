@@ -25,10 +25,10 @@ jobs:
           submodules: 'recursive'
 
       # cf. https://github.com/libsdl-org/SDL/blob/main/docs/README-linux.md
-      - name: Get build dependencies for SDL from APT  
+      - name: Get build dependencies from APT  
         run: |
           sudo apt update
-          sudo apt install -y qt6-base-dev libgl-dev
+          sudo apt install -y qt6-base-dev libgl-dev libglu1-mesa-dev
 
       - name: Configure
         run: qmake6 -o Makefile src/md3.pro
